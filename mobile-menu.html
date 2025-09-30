@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Menu</title>
+<link rel="stylesheet" href="styles.css"> <!-- Your main CSS -->
+<style>
+    :root {
+        --text-primary: #e1e1e1;
+        --text-muted: #a0a0a0;
+        --accent: #6a5cff;
+        --accent-hover: #5048e5;
+        --radius: 16px;
+        --shadow-light: rgba(106, 92, 255, 0.15);
+        --bg: #0f1117;
+    }
+
+  /* Fullscreen menu container */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #0f1117;
+  }
+
+  .mobile-menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* vertical centering */
+    align-items: center;      /* horizontal centering */
+    height: 100vh;            /* full viewport height */
+    gap: 2rem;                /* spacing between links */
+  }
+
+  /* Style the links exactly like the navbar */
+  .mobile-menu-container a {
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mobile-menu-container a:hover,
+  .mobile-menu-container a:focus {
+    background-color: var(--accent);
+    color: var(--bg);
+    box-shadow: 0 4px 12px var(--shadow-light);
+    outline: none;
+  }
+
+  /* Remove default list styles and center */
+  .mobile-menu-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  /* Target the links directly */
+  .mobile-menu-container li a {
+    opacity: 0;
+    transform: translateY(20px);
+    display: inline-block; /* ensures transform works */
+    animation: fadeInUp 0.5s forwards;
+  }
+
+  /* Stagger using nth-child */
+  .mobile-menu-container li:nth-child(1) a { animation-delay: 0.1s; }
+  .mobile-menu-container li:nth-child(2) a { animation-delay: 0.25s; }
+  .mobile-menu-container li:nth-child(3) a { animation-delay: 0.4s; }
+  .mobile-menu-container li:nth-child(4) a { animation-delay: 0.55s; }
+
+  /* Keyframes */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+  <nav class="mobile-menu-container">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="our-work.html">Our Work</a></li>
+        <li><a href="our-team.html">Our Team</a></li>
+        <li><a href="reach-out.html">Contact</a></li>
+    </ul>
+  </nav>
+</body>
+</html>

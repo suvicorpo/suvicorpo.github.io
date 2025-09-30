@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Suvi Corporation - Contact & Work With Us</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+    /* Toggle buttons container */
+    .toggle-buttons {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .toggle-buttons button {
+      background-color: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      padding: 0.6rem 1.5rem;
+      margin: 0 0.5rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .toggle-buttons button.active,
+    .toggle-buttons button:hover {
+      background-color: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    /* Minor spacing tweaks */
+    .grid > div {
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/suvi_logo-whitetext-transparent.png" alt="Suvi Corporation Logo" />
+                </a>
+            </div>
+            <button class="mobile-nav-toggle"><a href="mobile-menu.html">☰</a></button>
+            <ul class="nav-links">
+              <li><a href="our-work.html">Our Work</a></li>
+              <li><a href="our-team.html">Our Team</a></li>
+              <li><a href="reach-out.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="toggle-buttons">
+        <button id="btn-contact" class="active" aria-controls="contact-section" aria-selected="true">Contact</button>
+        <button id="btn-work" aria-controls="work-section" aria-selected="false">Work With Us</button>
+      </div>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact-section" class="active-section">
+        <h2>Contact</h2>
+        <p class="lead" style="text-align:center;">Get in touch for partnerships, press, or general enquiries. We aim to reply within 5–7 business days. NOTE: Please don't contact us with a job application!</p>
+
+        <div class="grid">
+          <div>
+            <h4>General Enquiries</h4>
+            <p>Email: <a href="mailto:suvicorp@hotmail.com">suvicorp@hotmail.com</a></p>
+            <h4>Job Applications</h4>
+            <p><a href="https://forms.gle/NvXkufZpSqtcd66v6">Application form</a></p>
+          </div>
+          <div>
+            <h3>Send us a message</h3>
+            <form id="contact-form" action="https://formspree.io/f/xjkoplne" method="POST">
+              <input type="text" name="name" placeholder="Your name*" required />
+              <input type="email" name="email" placeholder="Email*" required />
+              <input type="text" name="subject" placeholder="Subject" />
+              <textarea name="message" placeholder="Message" rows="6" required></textarea>
+              <button type="submit">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK WITH US SECTION -->
+      <section id="work-section" style="display:none;">
+        <h2>Work With Us</h2>
+        <p class="lead" style="text-align:center;">We partner with studios, freelancers and publishers. Tell us about what you do and how you'd like to collaborate.</p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Partnerships & Licensing</h3>
+            <p>We're open to IP licensing, co-development and distribution partnerships. Send a brief with rights needed and timeline.</p>
+          </div>
+          <div class="card">
+            <h3>Hiring & Freelance</h3>
+            <p>We're often looking for animators, programmers, writers and audio designers. Attach portfolio links when you apply.</p>
+          </div>
+          <div class="card">
+            <h3>Submissions</h3>
+            <p>Have an IP or pitch? We accept short written submissions (1–2 pages) and visual pitch decks for review.</p>
+          </div>
+        </div>
+
+        <section style="margin-top:2rem;">
+          <h3>Apply / Pitch</h3>
+          <form id="pitch-form" action="https://formspree.io/f/mvgqvlez" method="POST">
+            <input type="text" name="name" placeholder="Your name*" required />
+            <input type="email" name="email" placeholder="Email*" required />
+            <input type="text" name="company" placeholder="Company / Role (optional)" />
+            <input type="url" name="portfolio" placeholder="Portfolio or pitch URL" />
+            <textarea name="message" placeholder="Brief pitch or message" rows="6"></textarea>
+            <button type="submit">Send Pitch</button>
+          </form>
+        </section>
+      </section>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="logo"><a href="index.html">Suvi Corporation</a></div>
+        <p class="muted">© 2025 Suvi Corporation Pty Ltd. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <p>Contact: <a href="mailto:suvicorp@hotmail.com">suvicorp@hotmail.com</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle sections
+    const btnContact = document.getElementById('btn-contact');
+    const btnWork = document.getElementById('btn-work');
+    const contactSection = document.getElementById('contact-section');
+    const workSection = document.getElementById('work-section');
+
+    btnContact.addEventListener('click', () => {
+      btnContact.classList.add('active');
+      btnContact.setAttribute('aria-selected', 'true');
+      btnWork.classList.remove('active');
+      btnWork.setAttribute('aria-selected', 'false');
+
+      contactSection.style.display = 'block';
+      workSection.style.display = 'none';
+    });
+
+    btnWork.addEventListener('click', () => {
+      btnWork.classList.add('active');
+      btnWork.setAttribute('aria-selected', 'true');
+      btnContact.classList.remove('active');
+      btnContact.setAttribute('aria-selected', 'false');
+
+      workSection.style.display = 'block';
+      contactSection.style.display = 'none';
+    });
+  </script>
+  <script src="js/script.js"></script>
+</body>
+</html>
