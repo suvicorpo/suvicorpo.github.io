@@ -96,7 +96,22 @@
     }
 
     /* ===== Rows / Carousels ===== */
-    .row{margin:26px 0}
+    .row {
+      margin: 26px 0;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .row.hidden {
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      overflow: hidden;
+    }
     .row-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
     .row-title{font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#cfd3df}
     .scroller{
@@ -156,6 +171,52 @@
     /* ===== Footer ===== */
     footer{padding:26px 0; border-top:1px solid #1e2436; color:#a9b0c1; margin-top:30px}
     .footer-inner{max-width:var(--container); margin:0 auto; padding:0 28px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+
+    #studioTabs {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    #studioTabs button {
+      border: none;
+      padding: 0;
+      background: none;
+      cursor: pointer;
+      border-radius: 16px;
+      overflow: hidden;
+      width: 240px;   /* bigger */
+      height: 120px;   /* bigger */
+      flex-shrink: 0;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    #studioTabs button:hover {
+      transform: scale(1.05);
+    }
+
+    #studioTabs button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%); /* monochrome by default */
+      transition: filter 0.3s, transform 0.2s;
+    }
+
+    #studioTabs button:hover img,
+    #studioTabs button.active img {
+      filter: none; /* full color when hovered or selected */
+    }
+
+    #studioTabs button.active {
+      border: 3px solid var(--accent);
+      filter: none;
+    }
+
   </style>
 </head>
 <body>
@@ -163,7 +224,7 @@
   <!-- ===== NAV ===== -->
   <header class="navbar">
     <div class="nav-left">
-      <a class="logo" href="https://suvicorp.neocities.org/">
+      <a class="logo" href="https://suvicorpo.github.io/stream.html">
         <img src="images/viewpoint_logo.png" alt="Suvi Corporation Logo">
       </a>
     </div>
@@ -194,31 +255,41 @@
       </div>
     </section>
 
+    <div id="studioTabs"></div>
+
+    <!-- The Battle -->
     <section class="row" aria-labelledby="row-thebattle">
       <div class="row-header"><h3 id="row-thebattle" class="row-title">The Battle</h3></div>
       <div id="rowTheBattle" class="scroller" role="list"></div>
       <div id="emptyTheBattle" class="empty muted" style="display:none;">Series not found!</div>
     </section>
 
+    <!-- Wafront -->
     <section class="row" aria-labelledby="row-wafront">
       <div class="row-header"><h3 id="row-wafront" class="row-title">Wafront</h3></div>
       <div id="rowWafront" class="scroller" role="list"></div>
       <div id="emptyWafront" class="empty muted" style="display:none;">Series not found!</div>
     </section>
 
+    <!-- Pivonian Academy -->
     <section class="row" aria-labelledby="row-pivonian">
       <div class="row-header"><h3 id="row-pivonian" class="row-title">Pivonian Academy</h3></div>
       <div id="rowPivonian" class="scroller" role="list"></div>
       <div id="emptyPivonian" class="empty muted" style="display:none;">Series not found!</div>
     </section>
 
-    <!-- Skirmish Studies  v
+    <!-- The Bomb -->
+    <section class="row" aria-labelledby="row-thebomb">
+      <div class="row-header"><h3 id="row-thebomb" class="row-title">The Bomb</h3></div>
+      <div id="rowTheBomb" class="scroller" role="list"></div>
+      <div id="emptyTheBomb" class="empty muted" style="display:none;">Series not found!</div>
+
+    <!-- Skirmish Studies -->
     <section class="row" aria-labelledby="row-skirmishstudies">
       <div class="row-header"><h3 id="row-skirmishstudies" class="row-title">Skirmish Studies</h3></div>
       <div id="rowSkirmishStudies" class="scroller" role="list"></div>
       <div id="emptySkirmishStudies" class="empty muted" style="display:none;">Series not found!</div>
     </section>
-    -->
   </main>
 
   <!-- ===== Player Modal ===== -->
@@ -287,6 +358,10 @@
     // { id:'s27', title:'The 2nd Battle of Geonosis', category:'SkirmishStudies', poster:'images/Posters/SSE2.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E2.mp4', year:2025, desc:'', se:'Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
     // { id:'s28', title:'The Battle of Ryloth', category:'SkirmishStudies', poster:'images/Posters/SSE3.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E3.mp4', year:2026, desc:'', se:'Episode 3', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
     // { id:'s29', title:'The Siege of Mandalore', category:'SkirmishStudies', poster:'images/Posters/SSE4.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E4.mp4', year:2026, desc:'', se:'Episode 4', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+
+    // The Bomb Mini Series
+    { id:'s30', title:'The Bomb - Part 1', category:'TheBomb', poster:'images/Posters/BE1.png', src:'videos/TheBomb/TheBomb-E1.mp4', year:2022, desc:'', se:'Part 1', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s31', title:'The Bomb - Part 2', category:'TheBomb', poster:'images/Posters/BE2.png', src:'videos/TheBomb/TheBomb-E2.mp4', year:2022, desc:'', se:'Part 2', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
   ];
 
   const state = {
@@ -312,6 +387,8 @@
   const emptyPivonian = document.getElementById('emptyPivonian');
   const rowSkirmishStudies = document.getElementById('rowSkirmishStudies');
   const emptySkirmishStudies = document.getElementById('emptySkirmishStudies');
+  const rowTheBomb = document.getElementById('rowTheBomb');
+  const emptyTheBomb = document.getElementById('emptyTheBomb');
 
   const heroBg = document.getElementById('heroBg');
   const heroPoster = document.getElementById('heroPoster');
@@ -332,15 +409,73 @@
   function uid(){ return 'id-' + Math.random().toString(36).slice(2,9) }
   function yearOrDash(y){ return y ? String(y) : '—' }
 
-  function makeThumb(title){
-    const bg = 'linear-gradient(135deg,#151e30,#0f1424 60%)';
-    return { style: `background:${bg};display:grid;place-items:center;color:#cfd3df;font-weight:800;letter-spacing:.05em;` , text: title };
+    function makeThumb(title){
+      const bg = 'linear-gradient(135deg,#151e30,#0f1424 60%)';
+      return { style: `background:${bg};display:grid;place-items:center;color:#cfd3df;font-weight:800;letter-spacing:.05em;` , text: title };
+    }
+
+  function getMostRecentItem(filteredItems = null) {
+    const items = filteredItems || state.items;
+    if (!items || items.length === 0) return null;
+
+    // Step 1: Find the max year
+    let maxYear = -Infinity;
+    for (const item of items) {
+      const year = Number(item.year);
+      if (!isNaN(year) && year > maxYear) maxYear = year;
+    }
+    console.log('Max year found:', maxYear);
+
+    // Step 2: Filter items with that year
+    const itemsInMaxYear = items.filter(i => Number(i.year) === maxYear);
+    console.log(`Items in year ${maxYear}:`, itemsInMaxYear);
+
+    if (itemsInMaxYear.length === 0) return null;
+
+    // Step 3: Find the item with the highest ID (numeric if possible)
+    let mostRecent = itemsInMaxYear[0];
+    for (const item of itemsInMaxYear) {
+      const currentIdNum = Number(item.id);
+      const mostRecentIdNum = Number(mostRecent.id);
+
+      // Prefer numeric comparison if both are valid numbers
+      if (!isNaN(currentIdNum) && !isNaN(mostRecentIdNum)) {
+        if (currentIdNum > mostRecentIdNum) mostRecent = item;
+      } else {
+        // Fallback: string comparison
+        if (item.id > mostRecent.id) mostRecent = item;
+      }
+    }
+
+    console.log('Most recent item based on year & ID:', mostRecent);
+    return mostRecent;
   }
 
-  function setFeatured(id){
-    state.featuredId = id;
-    const item = state.items.find(i=>i.id===id);
-    if(!item) return;
+  // Use it after state.items is ready and DOM elements exist
+  const mostRecentItem = getMostRecentItem();
+  if (mostRecentItem) setFeatured(mostRecentItem.id);
+
+  function setFeatured(idOrItem) {
+    // Accept either an item object _or_ an id
+    let item = null;
+    if (typeof idOrItem === 'object' && idOrItem !== null && idOrItem.id !== undefined) {
+      item = idOrItem;
+      state.featuredId = item.id;
+    } else {
+      state.featuredId = idOrItem;
+      item = state.items.find(i => String(i.id) === String(idOrItem));
+    }
+
+    if (!item) {
+      console.warn('setFeatured: item not found for', idOrItem, 'state.items length:', state.items.length);
+      // log call stack so we can see what triggered it
+      console.warn(new Error().stack);
+      return;
+    }
+
+    console.log('setFeatured called for:', item, '\ncall stack:\n', new Error().stack);
+
+    // Update hero UI (do not call setFeatured() again from here)
     heroTitle.textContent = item.title;
     heroMeta.textContent = `${item.category} | ${yearOrDash(item.se)} | ${yearOrDash(item.year)}`;
     heroBg.style.backgroundImage = item.poster ? `url("${item.poster}")` : 'linear-gradient(135deg,#11182a,#0c1120)';
@@ -348,6 +483,7 @@
     heroPoster.alt = item.title + ' poster';
     heroPlay.onclick = () => openPlayer(item);
   }
+
 
   function card(item){
     const el = document.createElement('article');
@@ -365,30 +501,124 @@
     return el;
   }
 
+  // ===== Studio Tabs =====
+  const studioTabsContainer = document.getElementById('studioTabs');
+
+  // 1. Get unique studios
+  function getStudios() {
+    const studios = [...new Set(state.items.map(i => i.studio).filter(Boolean))];
+    return [{ name: 'All', img: 'images/Studios/All.png' }, 
+            ...studios.map(s => ({
+              name: s,
+              img: `images/Studios/${s.replace(/\s+/g,'')}.png`
+            }))];
+  }
+
+  // 2. Render tabs
+  function renderStudioTabs() {
+    const studios = getStudios();
+    studioTabsContainer.innerHTML = '';
+    studios.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'studio-tab';
+      
+      const img = document.createElement('img');
+      img.src = s.img;
+      img.alt = s.name;
+
+      // Set fallback if image doesn't exist
+      img.onerror = () => { img.src = 'images/placeholder.png'; };
+
+      btn.appendChild(img);
+      btn.addEventListener('click', () => {
+        setStudioFilter(s.name);
+        setActiveTab(s.name);
+      });
+      studioTabsContainer.appendChild(btn);
+    });
+  }
+
+  // 3. Highlight active tab
+  function setActiveTab(name) {
+    document.querySelectorAll('#studioTabs button').forEach(btn => {
+      btn.classList.toggle('active', btn.querySelector('img').alt === name);
+    });
+  }
+
+  // 4. Filter shows by studio
+  function setStudioFilter(studio) {
+    if (studio === 'All') state.filtered = null;
+    else state.filtered = state.items.filter(i => i.studio === studio);
+    render();
+  }
+
+  // Initialize tabs
+  renderStudioTabs();
+  setActiveTab('All');
+
   function byCategory(cat){
     const source = state.filtered ?? state.items;
     return source.filter(i => i.category === cat);
   }
 
   function renderRow(dest, emptyEl, list){
+    const rowContainer = dest.parentElement; // the section.row container
+
     dest.innerHTML = '';
-    if(!list.length){ emptyEl.style.display='block'; return; }
-    emptyEl.style.display='none';
+
+    if(!list.length){
+      emptyEl.style.display = 'block';
+      rowContainer.style.display = 'none'; // hide the whole section
+      return;
+    }
+
+    emptyEl.style.display = 'none';
+    rowContainer.style.display = 'block'; // show the section
     list.forEach(i => dest.appendChild(card(i)));
   }
 
-  function render(){
-    const latest = [...state.items].slice(-12).reverse();
-    renderRow(rowBattle, emptyBattle, byCategory('TheBattle'));
-    renderRow(rowWafront, emptyWafront, byCategory('Wafront'));
-    renderRow(rowPivonian, emptyPivonian, byCategory('PivonianAcademy'));
-    renderRow(rowSkirmishStudies, emptySkirmishStudies, byCategory('SkirmishStudies'));
 
-    if(!state.featuredId && state.items.length){
-      setFeatured(state.items[state.items.length-1].id);
-    } else if(state.featuredId){
-      setFeatured(state.featuredId);
+  function render(){
+    const rows = [
+      { dest: rowBattle, empty: emptyBattle, cat: 'TheBattle' },
+      { dest: rowWafront, empty: emptyWafront, cat: 'Wafront' },
+      { dest: rowPivonian, empty: emptyPivonian, cat: 'PivonianAcademy' },
+      { dest: rowTheBomb, empty: emptyTheBomb, cat: 'TheBomb' },
+      { dest: rowSkirmishStudies, empty: emptySkirmishStudies, cat: 'SkirmishStudies' },
+    ];
+
+    let delay = 0;
+    rows.forEach(r => {
+      const list = byCategory(r.cat);
+      renderRow(r.dest, r.empty, list);
+
+      // Remove previous transition
+      r.dest.parentElement.classList.remove('visible');
+
+      if(list.length){
+        // Add staggered fade-in
+        setTimeout(() => {
+          r.dest.parentElement.classList.add('visible');
+        }, delay);
+        delay += 150; // 150ms stagger between rows
+      }
+    });
+
+    // --- Featured handling: do NOT auto-overwrite the featured item here ---
+    // Ensure the hero displays the currently-selected featured item (without re-calling setFeatured)
+    if (state.featuredId) {
+      const current = state.items.find(i => String(i.id) === String(state.featuredId));
+      if (current) {
+        // update the hero UI directly (no setFeatured call, to avoid recursion/overwrites)
+        heroTitle.textContent = current.title;
+        heroMeta.textContent = `${current.category} | ${yearOrDash(current.se)} | ${yearOrDash(current.year)}`;
+        heroBg.style.backgroundImage = current.poster ? `url("${current.poster}")` : 'linear-gradient(135deg,#11182a,#0c1120)';
+        heroPoster.src = current.vertposter || '';
+        heroPoster.alt = current.title + ' poster';
+        heroPlay.onclick = () => openPlayer(current);
+      }
     }
+
   }
 
   // ===== Player =====
@@ -444,9 +674,11 @@
       heroTitle.textContent = 'Your Suvi+ Library';
       heroMeta.textContent = 'Add server-hosted short films, game trailers, and cinematics.';
     } else {
-      setFeatured(state.items[state.items.length-1].id);
+      setFeatured(mostRecentItem.id); // use the real most recent item
     }
 
+
+    renderStudioTabs();
     render();
   })();
 
