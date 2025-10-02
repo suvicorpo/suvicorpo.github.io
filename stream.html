@@ -164,13 +164,8 @@
   <header class="navbar">
     <div class="nav-left">
       <a class="logo" href="https://suvicorp.neocities.org/">
-        <img src="images/suvi_logo-whitetext-transparent.png" alt="Suvi Corporation Logo">
+        <img src="images/viewpoint_logo.png" alt="Suvi Corporation Logo">
       </a>
-      <ul class="nav-links">
-        <li><a href="https://suvicorp.neocities.org/our-work.html">Our Work</a></li>
-        <li><a href="https://suvicorp.neocities.org/our-team.html">Our Team</a></li>
-        <li><a href="https://suvicorp.neocities.org/reach-out.html">Contact</a></li>
-      </ul>
     </div>
 
     <div class="nav-right">
@@ -216,6 +211,14 @@
       <div id="rowPivonian" class="scroller" role="list"></div>
       <div id="emptyPivonian" class="empty muted" style="display:none;">Series not found!</div>
     </section>
+
+    <!-- Skirmish Studies  v
+    <section class="row" aria-labelledby="row-skirmishstudies">
+      <div class="row-header"><h3 id="row-skirmishstudies" class="row-title">Skirmish Studies</h3></div>
+      <div id="rowSkirmishStudies" class="scroller" role="list"></div>
+      <div id="emptySkirmishStudies" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+    -->
   </main>
 
   <!-- ===== Player Modal ===== -->
@@ -232,8 +235,8 @@
 
   <footer>
     <div class="footer-inner">
-      <div>© 2025 Suvi Corporation Pty Ltd</div>
-      <div class="muted">Suvi+</div>
+      <div>© 2025 Suvi Corporation Pty Ltd. All rights reserved.</div>
+      <div class="muted"><a class="logo" href="https://suvicorpo.github.io/stream.html/"><img src="images/viewpoint_logo.png" alt="ViewPoint"></a></div>
     </div>
   </footer>
 
@@ -246,35 +249,44 @@
     // { id:uid(), title:'Sample Title', category:'Category', poster:'images/placeholder.jpg', src:'videos/sample.mp4', year:2024, desc:'Description' }
 
     // The Battle Season 1
-    { id:'s0', title:'Episode 1', category:'TheBattle', poster:'images/Posters/TBS1E1.png', src:'videos/TheBattle/TheBattle-S1-E1.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 1' },
-    { id:'s1', title:'Episode 2', category:'TheBattle', poster:'images/Posters/TBS1E2.png', src:'videos/TheBattle/TheBattle-S1-E2.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 2' },
-    { id:'s2', title:'Siege of the Tan Outpost', category:'TheBattle', poster:'images/Posters/TBS1E3.png', src:'videos/TheBattle/TheBattle-S1-E3.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 3' },
-    { id:'s3', title:'Revenge on the Greens', category:'TheBattle', poster:'images/Posters/TBS1E4.png', src:'videos/TheBattle/TheBattle-S1-E4.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 4' },
-    { id:'s4', title:'The Invasion', category:'TheBattle', poster:'images/Posters/TBS1E5.png', src:'videos/TheBattle/TheBattle-S1-E5.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 5' },
-    { id:'s5', title:'Green Advances', category:'TheBattle', poster:'images/Posters/TBS1E6.png', src:'videos/TheBattle/TheBattle-S1-E6.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 6' },
-    { id:'s6', title:'Siege on the Lego Base', category:'TheBattle', poster:'images/Posters/TBS1E7.png', src:'videos/TheBattle/TheBattle-S1-E7.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 7' },
-    { id:'s7', title:'The Empire', category:'TheBattle', poster:'images/Posters/TBS1E8.png', src:'videos/TheBattle/TheBattle-S1-E8.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 8' },
+    { id:'s0', title:'Episode 1', category:'TheBattle', poster:'images/Posters/TBS1E1.png', src:'videos/TheBattle/TheBattle-S1-E1.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 1', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s1', title:'Episode 2', category:'TheBattle', poster:'images/Posters/TBS1E2.png', src:'videos/TheBattle/TheBattle-S1-E2.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s2', title:'Siege of the Tan Outpost', category:'TheBattle', poster:'images/Posters/TBS1E3.png', src:'videos/TheBattle/TheBattle-S1-E3.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 3', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s3', title:'Revenge on the Greens', category:'TheBattle', poster:'images/Posters/TBS1E4.png', src:'videos/TheBattle/TheBattle-S1-E4.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 4', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s4', title:'The Invasion', category:'TheBattle', poster:'images/Posters/TBS1E5.png', src:'videos/TheBattle/TheBattle-S1-E5.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 5', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s5', title:'Green Advances', category:'TheBattle', poster:'images/Posters/TBS1E6.png', src:'videos/TheBattle/TheBattle-S1-E6.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 6', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s6', title:'Siege on the Lego Base', category:'TheBattle', poster:'images/Posters/TBS1E7.png', src:'videos/TheBattle/TheBattle-S1-E7.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 7', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s7', title:'The Empire', category:'TheBattle', poster:'images/Posters/TBS1E8.png', src:'videos/TheBattle/TheBattle-S1-E8.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 8', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
 
     // The Battle Season 2
-    { id:'s8', title:'No Prisoners', category:'TheBattle', poster:'images/Posters/TBS2E1.png', src:'videos/TheBattle/TheBattle-S2-E1.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 1' },
-    { id:'s9', title:'Fish in a Barrel', category:'TheBattle', poster:'images/Posters/TBS2E2.png', src:'videos/TheBattle/TheBattle-S2-E2.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 2' },
-    { id:'s10', title:'The Offensive', category:'TheBattle', poster:'images/Posters/TBS2E3.png', src:'videos/TheBattle/TheBattle-S2-E3.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 3' },
-    { id:'s11', title:'The Empire Strikes Back', category:'TheBattle', poster:'images/Posters/TBS2E4.png', src:'videos/TheBattle/TheBattle-S2-E4.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 4' },
-    { id:'s12', title:'Outskirts of Lego City', category:'TheBattle', poster:'images/Posters/TBS2E5.png', src:'videos/TheBattle/TheBattle-S2-E5.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 5' },
-    { id:'s13', title:'Displaced', category:'TheBattle', poster:'images/Posters/TBS2E6.png', src:'videos/TheBattle/TheBattle-S2-E6.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 6' },
-    { id:'s14', title:'Ambush', category:'TheBattle', poster:'images/Posters/TBS2E7.png', src:'videos/TheBattle/TheBattle-S2-E7.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 7' },
-    { id:'s15', title:'The Fallen', category:'TheBattle', poster:'images/Posters/TBS2E8.png', src:'videos/TheBattle/TheBattle-S2-E8.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 8' },
+    { id:'s8', title:'No Prisoners', category:'TheBattle', poster:'images/Posters/TBS2E1.png', src:'videos/TheBattle/TheBattle-S2-E1.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 1', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s9', title:'Fish in a Barrel', category:'TheBattle', poster:'images/Posters/TBS2E2.png', src:'videos/TheBattle/TheBattle-S2-E2.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s10', title:'The Offensive', category:'TheBattle', poster:'images/Posters/TBS2E3.png', src:'videos/TheBattle/TheBattle-S2-E3.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 3', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s11', title:'The Empire Strikes Back', category:'TheBattle', poster:'images/Posters/TBS2E4.png', src:'videos/TheBattle/TheBattle-S2-E4.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 4', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s12', title:'Outskirts of Lego City', category:'TheBattle', poster:'images/Posters/TBS2E5.png', src:'videos/TheBattle/TheBattle-S2-E5.mp4', year:2024, desc:'Season 2', se:'Season 2 • Episode 5', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s13', title:'Displaced', category:'TheBattle', poster:'images/Posters/TBS2E6.png', src:'videos/TheBattle/TheBattle-S2-E6.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 6', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s14', title:'Ambush', category:'TheBattle', poster:'images/Posters/TBS2E7.png', src:'videos/TheBattle/TheBattle-S2-E7.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 7', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
+    { id:'s15', title:'The Fallen', category:'TheBattle', poster:'images/Posters/TBS2E8.png', src:'videos/TheBattle/TheBattle-S2-E8.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 8', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions' },
 
     // Wafront
-    { id:'s16', title:'Preparations', category:'Wafront', poster:'images/Posters/WFE1.png', src:'videos/Warfront/Warfront-S1-E1.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 1' },
-    { id:'s17', title:'The First Fight, the first loss', category:'Wafront', poster:'images/Posters/WFE2.png', src:'videos/Warfront/Warfront-S1-E2.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 2' },
-    { id:'s18', title:'Awakening', category:'Wafront', poster:'images/Posters/WFE3.png', src:'videos/Warfront/Warfront-S1-E3.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 3' },
-    { id:'s19', title:'Unleash the Drone', category:'Wafront', poster:'images/Posters/WFE4.png', src:'videos/Warfront/Warfront-S1-E4.mp4', year:2023, desc:'Season 1', se:'Season 1 • Episode 4' },
-    { id:'s20', title:'The Ultimate Defeat', category:'Wafront', poster:'images/Posters/WFE5.png', src:'videos/Warfront/Warfront-S1-E5.mp4', year:2024, desc:'Season 1', se:'Season 1 • Episode 5' },
-    { id:'s21', title:'Displaced: Part 1', category:'Wafront', poster:'images/Posters/TBS2E6.png', src:'videos/TheBattle/TheBattle-S2-E6.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 1' },
+    { id:'s16', title:'Preparations', category:'Wafront', poster:'images/Posters/WFE1.png', src:'videos/Warfront/Warfront-S1-E1.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 1', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s17', title:'The First Fight, the first loss', category:'Wafront', poster:'images/Posters/WFE2.png', src:'videos/Warfront/Warfront-S1-E2.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s18', title:'Awakening', category:'Wafront', poster:'images/Posters/WFE3.png', src:'videos/Warfront/Warfront-S1-E3.mp4', year:2022, desc:'Season 1', se:'Season 1 • Episode 3', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s19', title:'Unleash the Drone', category:'Wafront', poster:'images/Posters/WFE4.png', src:'videos/Warfront/Warfront-S1-E4.mp4', year:2023, desc:'Season 1', se:'Season 1 • Episode 4', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s20', title:'The Ultimate Defeat', category:'Wafront', poster:'images/Posters/WFE5.png', src:'videos/Warfront/Warfront-S1-E5.mp4', year:2024, desc:'Season 1', se:'Season 1 • Episode 5', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s21', title:'Displaced: Part 1', category:'Wafront', poster:'images/Posters/TBS2E6.png', src:'videos/TheBattle/TheBattle-S2-E6.mp4', year:2025, desc:'Season 2', se:'Season 2 • Episode 1', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
 
-    // Pivonian Academy
-    { id:'s22', title:'A Comprehensive Guide to the GAR', category:'PivonianAcademy', poster:'images/Posters/PAE1.png', src:'videos/PivonianAcademy/PivonianAcademy-S1-E1.mp4', year:2025, desc:'', se:'Episode 1' }
+    // GAR Structure Series
+    { id:'s22', title:'The Ranks of the GAR', category:'PivonianAcademy', poster:'images/Posters/PAE1.png', src:'videos/PivonianAcademy/PivonianAcademy-S1-E1.mp4', year:2025, desc:'', se:'Episode 1: Part 1', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s23', title:'Structure of the GAR', category:'PivonianAcademy', poster:'images/Posters/PAE1P2.png', src:'videos/PivonianAcademy/PivonianAcademy-S1-E2.mp4', year:2025, desc:'', se:'Episode 1: Part 2', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    { id:'s24', title:'Fixing the GAR', category:'PivonianAcademy', poster:'images/Posters/PAE1P3.png', src:'videos/PivonianAcademy/PivonianAcademy-S1-E3.mp4', year:2025, desc:'', se:'Episode 1: Part 3', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    // { id:'s25', title:"GAR's Navy & Spec-Ops", category:'PivonianAcademy', poster:'images/Posters/PAE1P4.png', src:'videos/PivonianAcademy/PivonianAcademy-S1-E4.mp4', year:2025, desc:'', se:'Episode 1: Part 4', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+
+    // Skirmish Studies Series
+    // { id:'s26', title:'The Battle of Umbara', category:'SkirmishStudies', poster:'images/Posters/SSE1.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E1.mp4', year:2025, desc:'', se:'Episode 1', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    // { id:'s27', title:'The 2nd Battle of Geonosis', category:'SkirmishStudies', poster:'images/Posters/SSE2.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E2.mp4', year:2025, desc:'', se:'Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    // { id:'s28', title:'The Battle of Ryloth', category:'SkirmishStudies', poster:'images/Posters/SSE3.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E3.mp4', year:2026, desc:'', se:'Episode 3', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
+    // { id:'s29', title:'The Siege of Mandalore', category:'SkirmishStudies', poster:'images/Posters/SSE4.png', src:'videos/SkirmishStudies/SkirmishStudies-S1-E4.mp4', year:2026, desc:'', se:'Episode 4', vertposter:'images/Posters/placeholdervert.png', studio:'Pivonian Studios' },
   ];
 
   const state = {
@@ -298,6 +310,8 @@
   const emptyWafront = document.getElementById('emptyWafront');
   const rowPivonian = document.getElementById('rowPivonian');
   const emptyPivonian = document.getElementById('emptyPivonian');
+  const rowSkirmishStudies = document.getElementById('rowSkirmishStudies');
+  const emptySkirmishStudies = document.getElementById('emptySkirmishStudies');
 
   const heroBg = document.getElementById('heroBg');
   const heroPoster = document.getElementById('heroPoster');
@@ -330,7 +344,7 @@
     heroTitle.textContent = item.title;
     heroMeta.textContent = `${item.category} | ${yearOrDash(item.se)} | ${yearOrDash(item.year)}`;
     heroBg.style.backgroundImage = item.poster ? `url("${item.poster}")` : 'linear-gradient(135deg,#11182a,#0c1120)';
-    heroPoster.src = item.poster || '';
+    heroPoster.src = item.vertposter || '';
     heroPoster.alt = item.title + ' poster';
     heroPlay.onclick = () => openPlayer(item);
   }
@@ -368,6 +382,7 @@
     renderRow(rowBattle, emptyBattle, byCategory('TheBattle'));
     renderRow(rowWafront, emptyWafront, byCategory('Wafront'));
     renderRow(rowPivonian, emptyPivonian, byCategory('PivonianAcademy'));
+    renderRow(rowSkirmishStudies, emptySkirmishStudies, byCategory('SkirmishStudies'));
 
     if(!state.featuredId && state.items.length){
       setFeatured(state.items[state.items.length-1].id);
