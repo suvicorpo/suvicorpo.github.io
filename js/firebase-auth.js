@@ -25,7 +25,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "profile.html"; // redirect on success
+    window.location.href = "stream.html"; // redirect on success
   } catch (error) {
     document.getElementById("errorMessage").textContent = error.message;
   }
