@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ViewPoint - Profile</title>
+    <link rel="stylesheet" href="css/viewpoint.css">
+</head>
+<body>
+    <!-- ===== NAV ===== -->
+    <header class="navbar">
+        <div class="nav-left">
+        <a class="logo" href="https://suvicorpo.github.io/stream.html">
+            <img src="images/viewpoint_logo.png" alt="Suvi Corporation Logo">
+        </a>
+        </div>
+
+        <div class="nav-center">
+        <div class="search" role="search">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 0 0 1.57-4.23C15.99 6.01 13.21 3.23 9.99 3.23S4 6.01 4 9.23s2.78 6 5.99 6c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0s.41-1.08 0-1.49L15.5 14Zm-5.51 0C7.01 14 5 11.99 5 9.5S7.01 5 9.99 5s4.99 2.01 4.99 4.5S12.97 14 9.99 14Z"/></svg>
+            <input id="searchInput" type="search" placeholder="Search titles, categories…" />
+        </div>
+        </div>
+
+        <div class="nav-right">
+        <button id="profile" class="btn ghost" title="profile"><img class="profile-icon" src="images/profiles/profile-blue.png"><a href="profile.html" class="profile-text">Profile</a></button>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <div class="profile-picture">
+                <img class="profile-img" src="images/profiles/profile-blue.png" alt="Profile Picture">
+                <a href="images/profiles/profile-blue.png" target="_blank"><img class="edit-icon" src="images/icons/edit-button.png" alt="Edit Icon">Change Profile Picture</a>
+            </div>
+            <div class="profile-details">
+                <p></p>
+                <div class="Name"></div>
+                <h3>Contact Information</h3>
+                <div class="Email"></div>
+                <div class="Phone"></div>
+                <div class="Location"></div>
+                <h3>Subscriptions</h3>
+                <div class="Subscriptions"></div>
+                <div class="status"></div>
+                <div class="renewal"></div>
+            </div>
+        </div>
+
+        <button id="logoutBtn">Logout</button>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+        <div>© 2025 Suvi Corporation Pty Ltd. All rights reserved.</div>
+        <div class="muted"><a class="logo" href="https://suvicorpo.github.io/stream.html"><img src="images/viewpoint_logo.png" alt="ViewPoint"></a></div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase-profile.js"></script>
+</body>
+</html>
