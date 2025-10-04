@@ -1,11 +1,12 @@
     // ===== Data + Persistence =====
     const LS_KEY_LIBRARY = 'suvi_plus_library_v2';
-    import { fetchSubscriptionData } from './firebase-profile.js';
+    import { fetchUserData } from './firebase-profile.js';
 
     async function loadProfile() {
         try {
-            const subData = await fetchSubscriptionData();
-            console.log('Subscription Data:', subData.subStatus, subData.subType);
+            const usrData = await fetchUserData();
+            console.log('Subscription Data:', usrData.subStatus, usrData.subType);
+            console.log('Accout name:', usrData.usrName)
         } catch (err) {
             console.error("Failed to load subscription data:", err);
         }
@@ -115,6 +116,7 @@
     const emptySkirmishStudies = document.getElementById('emptySkirmishStudies');
     const rowMovies = document.getElementById('rowMovies');
     const emptyMovies = document.getElementById('emptyMovies');
+    const ProfileText = document.getElementById('profile-text')
 
     const heroBg = document.getElementById('heroBg');
     const heroPoster = document.getElementById('heroPoster');

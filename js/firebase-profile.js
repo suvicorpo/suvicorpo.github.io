@@ -36,6 +36,8 @@ async function populateProfile(userId) {
       document.querySelector(".renewal").innerHTML = `<strong>Next Renewal Date:</strong> ${data.renewal || "N/A"}`;
       document.querySelector(".profile-picture img").src = data.profilepic || "images/profiles/profile-blue.png";
       document.querySelector(".profile-icon").src = data.profilepic || "images/profiles/profile-blue.png";
+      document.querySelector(".profile-text").innerHTML = data.name || "Profile";
+      document.querySelector(".profile-header").innerHTML = `<strong>${data.name || "N/A"}</strong>\'s Profile`;
     } else {
       console.log("No such user data!");
     }
@@ -44,7 +46,7 @@ async function populateProfile(userId) {
   }
 }
 
-export async function fetchSubscriptionData() {
+export async function fetchUserData() {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -56,10 +58,11 @@ export async function fetchSubscriptionData() {
             const data = docSnap.data();
             const subStatus = data.status || "Inactive";
             const subType = data.subscriptions || "None";
-            resolve({ subStatus, subType });
+            const usrName = data.name || "Profile";
+            resolve({ subStatus, subType, usrName });
           } else {
             console.log("No such user data!");
-            resolve({ subStatus: "Inactive", subType: "None" });
+            resolve({ subStatus: "Inactive", subType: "None", name: "Profile" });
           }
         } catch (err) {
           console.error("Error getting profile:", err);
@@ -67,7 +70,7 @@ export async function fetchSubscriptionData() {
         }
       } else {
         console.log("No user signed in");
-        resolve({ subStatus: "Inactive", subType: "None" });
+        resolve({ subStatus: "Inactive", subType: "None", name: "Profile" });
       }
     });
   });
@@ -77,7 +80,7 @@ export async function fetchSubscriptionData() {
 onAuthStateChanged(auth, (user) => {
   if (user) {
     populateProfile(user.uid);
-    fetchSubscriptionData(user.uid);
+    fetchUserData(user.uid);
   } else {
     window.location.href = "login.html"; // redirect if not logged in
   }

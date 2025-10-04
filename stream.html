@@ -32,7 +32,7 @@
 
     <div class="nav-right">
       <button id="notifbtn" class="btn ghost" title="notifications"><img class="notif-icon" src="images/icons/notif.png" alt="Notifications"></button>
-      <button id="profilebtn" class="btn ghost" title="profile"><img class="profile-icon" src="images/profiles/profile-blue.png"><a class="profile-text">Profile</a></button>
+      <button id="profilebtn" class="btn ghost" title="profile"><img class="profile-icon" src="images/profiles/profile-blue.png"><a class="profile-text" id="profile-text">Profile</a></button>
     </div>
   </header>
 
@@ -45,12 +45,12 @@
           </div>
           <p class="muted">No new notifications.</p>
           <button id="closeNotifBtn" class="btn ghost" title="Close notifications panel">Close</button>
-        </div>uj
+        </div>
       </div>
 
     <div id="profilePanel" class="profile-panel" style="display:none;">
         <div class="profile-content">
-          <h1>User Profile</h1>
+          <h1 class="profile-header" id="profile-name"></h1>
             <div class="profile-picture">
                 <img class="profile-img" src="images/profiles/profile-blue.png" alt="Profile Picture">
                 <a href="images/profiles/profile-blue.png" target="_blank"><img class="edit-icon" src="images/icons/edit-button.png" alt="Edit Icon">Change Profile Picture</a>
