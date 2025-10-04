@@ -122,7 +122,7 @@
     const heroMeta = document.getElementById('heroMeta');
     const heroPlay = document.getElementById('heroPlay');
 
-    const searchInput = document.getElementById('searchInput');
+    // const searchInput = document.getElementById('searchInput');
 
     // Player
     const player = document.getElementById('player');
@@ -394,17 +394,17 @@
     });
 
     // ===== Search =====
-    searchInput.addEventListener('input', ()=>{
-      const q = searchInput.value.toLowerCase().trim();
-      if(!q){ state.filtered = null; render(); return; }
-      const results = state.items.filter(i =>
-        i.title.toLowerCase().includes(q) ||
-        (i.category && i.category.toLowerCase().includes(q)) ||
-        (i.desc && i.desc.toLowerCase().includes(q))
-      );
-      state.filtered = results;
-      render();
-    });
+    //searchInput.addEventListener('input', ()=>{
+    //  const q = searchInput.value.toLowerCase().trim();
+    //  if(!q){ state.filtered = null; render(); return; }
+    //  const results = state.items.filter(i =>
+    //    i.title.toLowerCase().includes(q) ||
+    //    (i.category && i.category.toLowerCase().includes(q)) ||
+    //    (i.desc && i.desc.toLowerCase().includes(q))
+    //  );
+    //  state.filtered = results;
+    //  render();
+    //});
 
 
     // ===== Notifications & Profile Panels =====

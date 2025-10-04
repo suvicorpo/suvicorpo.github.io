@@ -48,7 +48,6 @@
     .search{
       display:flex; align-items:center; gap:8px;
       background:#151a28; border:1px solid #22283a; padding:10px 12px; border-radius:12px; width:320px;
-      max-width: 300px; margin-left: -400px;
     }
     .search input{
       background:transparent; border:none; outline:none; color:var(--text); width:100%;
