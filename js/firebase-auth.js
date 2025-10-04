@@ -57,7 +57,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
       profilepic: "images/profiles/profile-blue.png"
     });
 
-    window.location.href = "profile.html"; // redirect to profile
+    window.location.href = "stream.html"; // redirect to stream
   } catch (error) {
     document.getElementById("errorMessage").textContent = error.message;
   }

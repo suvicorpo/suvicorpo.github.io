@@ -44,10 +44,40 @@ async function populateProfile(userId) {
   }
 }
 
+export async function fetchSubscriptionData() {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            const subStatus = data.status || "Inactive";
+            const subType = data.subscriptions || "None";
+            resolve({ subStatus, subType });
+          } else {
+            console.log("No such user data!");
+            resolve({ subStatus: "Inactive", subType: "None" });
+          }
+        } catch (err) {
+          console.error("Error getting profile:", err);
+          reject(err);
+        }
+      } else {
+        console.log("No user signed in");
+        resolve({ subStatus: "Inactive", subType: "None" });
+      }
+    });
+  });
+}
+
 // Listen for auth state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
     populateProfile(user.uid);
+    fetchSubscriptionData(user.uid);
   } else {
     window.location.href = "login.html"; // redirect if not logged in
   }

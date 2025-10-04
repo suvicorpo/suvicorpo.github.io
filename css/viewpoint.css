@@ -1,3 +1,7 @@
+    /* ===== Import Fonts ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap');
+
+    
     /* ===== Variables / Theme ===== */
     :root{
       --bg:#0f1117;
@@ -44,6 +48,7 @@
     .search{
       display:flex; align-items:center; gap:8px;
       background:#151a28; border:1px solid #22283a; padding:10px 12px; border-radius:12px; width:320px;
+      max-width: 300px; margin-left: -400px;
     }
     .search input{
       background:transparent; border:none; outline:none; color:var(--text); width:100%;
@@ -238,4 +243,91 @@
 
     .edit-icon{
       width:18px; height:18px; object-fit:cover; margin-left:8px; vertical-align:middle; cursor:pointer; display: inline; color: #cfd3df; gap: 4px; margin-right: 5px;
+    }
+
+    .notif-icon{
+      width:24px; height:24px; object-fit:cover; vertical-align:middle; display: inline;
+    }
+
+    .notifications-panel, .profile-panel {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stays in place */
+      z-index: 1; /* Sits on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+      justify-content: center; /* Center content horizontally */
+      align-items: center; /* Center content vertically */
+    }
+
+    .notifications-content, .profile-content {
+      background-color: #0f1117aa; /* Panel background color */
+      margin: auto; /* Center the box */
+      padding: 20px;
+      border: 1px solid #1f2430;
+      width: 90%; /* Could be adjusted */
+      max-width: 800px; /* Max width for better responsiveness */
+      height: auto; /* Adjust height as needed */
+      max-height: 80vh; /* Limit max height */
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      border-radius: 5px;
+      text-align: center;
+      backdrop-filter:saturate(1.2) blur(6px);
+    }
+
+    .logoutBtn {
+      background: var(--accent);
+      color: #0c0f16;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s transform, .2s box-shadow, .2s background;
+      margin-top: 10px;
+    }
+
+    .input-field {
+      width: 25%;
+      padding: 12px 12px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      background: #121829;
+      color: #eaeffb;
+      border: 1px solid #243051;
+      border-radius: 12px;
+      outline: none;
+      font-size: larger;
+    }
+
+    .buffer {
+      height: 50px; /* Adjust the height as needed */
+    }
+
+    .largeBuffer {
+      height: 400px; /* Adjust the height as needed */
+    }
+
+    .navbtn{
+      background:transparent;
+      border:0px solid #2a3146;
+      color:#e7e8ea;
+      margin-right: 60px;
+      font-weight: 600;
+      transition:.2s transform,.2s;
+    }
+    .navbtn:hover{
+      color: #fff;
+      size: 20px;
+      transform:translateY(-2px); 
+    }
+    .navimg {
+      width: 15px;
+      height: 15px;
+      gap: 8px;
+      display: inline-block;
+      margin-right: 8px;
     }
