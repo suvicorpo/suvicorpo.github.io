@@ -361,19 +361,25 @@
     // ===== Player =====
     async function openPlayer(item){
         const subData = await fetchSubscriptionData();
-        if (item.sub === 'Free') {
-            player.style.display='flex';
-            videoEl.src = item.src || '';
-            videoEl.play().catch(()=>{});
-            playerTitle.textContent = item.title;
-            playerDesc.textContent = item.desc || `${item.category} • ${yearOrDash(item.year)}`;
-        } else if (item.sub === subData.subType) {
-            player.style.display='flex';
-            videoEl.src = item.src || '';
-            videoEl.play().catch(()=>{});
-            playerTitle.textContent = item.title;
-            playerDesc.textContent = item.desc || `${item.category} • ${yearOrDash(item.year)}`;            
-        }
+        player.style.display='flex';
+        videoEl.src = item.src || '';
+        videoEl.play().catch(()=>{});
+        playerTitle.textContent = item.title;
+        playerDesc.textContent = item.desc || `${item.category} • ${yearOrDash(item.year)}`;
+
+        //if (item.sub === 'Free') {
+            //player.style.display='flex';
+            //videoEl.src = item.src || '';
+            //videoEl.play().catch(()=>{});
+            //playerTitle.textContent = item.title;
+            //playerDesc.textContent = item.desc || `${item.category} • ${yearOrDash(item.year)}`;
+        //} else if (item.sub === subData.subType) {
+            //player.style.display='flex';
+            //videoEl.src = item.src || '';
+            //videoEl.play().catch(()=>{});
+            //playerTitle.textContent = item.title;
+            //playerDesc.textContent = item.desc || `${item.category} • ${yearOrDash(item.year)}`;            
+        //}
     }
 
     function closePlayer(){
