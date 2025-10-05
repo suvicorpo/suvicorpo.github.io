@@ -84,7 +84,7 @@
       { id:'studio-othernet', title:'OtherNet Studios', show:'studio', poster:'images/Studios/OtherNet.png', src:'', year:2020, desc:'Creators of "The Battle" and "The Bomb" series.', se:'', vertposter:'images/Studios/OtherNet-vert.png', studio:'OtherNet Studios' },     
 
       // Movies
-      { id:'m1', title:'The Battle of Paladin Strait', show:'Movies', poster:'images/placeholder.jpg', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'A sample movie description.', se:'', vertposter:'images/Posters/placeholdervert.png', studio:'OtherNet Studios' },
+      // { id:'m1', title:'Sample Movie 1', show:'Movies', poster:'images/placeholder.jpg', src:'videos/sample.mp4', year:2023, desc:'A sample movie description.', se:'', vertposter:'images/placeholdervert.png', studio:'Sample Studio' },
   ];
 
     const state = {
@@ -114,8 +114,6 @@
     const emptySectorfall = document.getElementById('emptySectorfall');
     const rowSkirmishStudies = document.getElementById('rowSkirmishStudies');
     const emptySkirmishStudies = document.getElementById('emptySkirmishStudies');
-    const emptyMovies = document.getElementById('emptyMovies');
-    const rowMovies = document.getElementById('rowMovies')
 
     const heroBg = document.getElementById('heroBg');
     const heroPoster = document.getElementById('heroPoster');
@@ -141,77 +139,6 @@
         return { style: `background:${bg};display:grid;place-items:center;color:#cfd3df;font-weight:800;letter-spacing:.05em;` , text: title };
       }
 
-    function getMostRecentItem(filteredItems = null) {
-      const items = filteredItems || state.items;
-      if (!items || items.length === 0) return null;
-
-      // Step 1: Find the max year
-      let maxYear = -Infinity;
-      for (const item of items) {
-        const year = Number(item.year);
-        if (!isNaN(year) && year > maxYear) maxYear = year;
-      }
-      console.log('Max year found:', maxYear);
-
-      // Step 2: Filter items with that year
-      const itemsInMaxYear = items.filter(i => Number(i.year) === maxYear);
-      console.log(`Items in year ${maxYear}:`, itemsInMaxYear);
-
-      if (itemsInMaxYear.length === 0) return null;
-
-      // Step 3: Find the item with the highest ID (numeric if possible)
-      let mostRecent = itemsInMaxYear[0];
-      for (const item of itemsInMaxYear) {
-        const currentIdNum = Number(item.id);
-        const mostRecentIdNum = Number(mostRecent.id);
-
-        // Prefer numeric comparison if both are valid numbers
-        if (!isNaN(currentIdNum) && !isNaN(mostRecentIdNum)) {
-          if (currentIdNum > mostRecentIdNum) mostRecent = item;
-        } else {
-          // Fallback: string comparison
-          if (item.id > mostRecent.id) mostRecent = item;
-        }
-      }
-
-      console.log('Most recent item based on year & ID:', mostRecent);
-      return mostRecent;
-    }
-
-    // Use it after state.items is ready and DOM elements exist
-    const mostRecentItem = getMostRecentItem();
-    if (mostRecentItem) setFeatured(mostRecentItem.id);
-
-    function setFeatured(idOrItem) {
-      // Accept either an item object _or_ an id
-      let item = null;
-      if (typeof idOrItem === 'object' && idOrItem !== null && idOrItem.id !== undefined) {
-        item = idOrItem;
-        state.featuredId = item.id;
-      } else {
-        state.featuredId = idOrItem;
-        item = state.items.find(i => String(i.id) === String(idOrItem));
-      }
-
-      if (!item) {
-        console.warn('setFeatured: item not found for', idOrItem, 'state.items length:', state.items.length);
-        // log call stack so we can see what triggered it
-        console.warn(new Error().stack);
-        return;
-      }
-
-      console.log('setFeatured called for:', item, '\ncall stack:\n', new Error().stack);
-
-      // Update hero UI (do not call setFeatured() again from here)
-      heroTitle.textContent = item.title;
-      heroMeta.textContent = `${item.show} | ${yearOrDash(item.se)} | ${yearOrDash(item.year)}`;
-      heroBg.style.backgroundImage = item.poster ? `url("${item.poster}")` : 'linear-gradient(135deg,#11182a,#0c1120)';
-      heroPoster.src = item.vertposter || '';
-      heroPoster.alt = item.title + ' poster';
-      heroPlay.onclick = () => openPlayer(item);
-    }
-
-
     function card(item){
       const el = document.createElement('article');
       el.className = 'card';
@@ -235,57 +162,6 @@
         el.querySelector('.movie-thumb').addEventListener('click', ()=> openPlayer(item));
       }
       return el;
-    }
-
-    // ===== Studio Tabs =====
-    const studioTabsContainer = document.getElementById('studioTabs');
-
-    // 1. Get unique studios
-    function getStudios() {
-      const studios = [...new Set(state.items.map(i => i.studio).filter(Boolean))];
-      return [{ name: 'All', img: 'images/Studios/All.png' }, 
-              ...studios.map(s => ({
-                name: s,
-                img: `images/Studios/${s.replace(/\s+/g,'')}.png`
-              }))];
-    }
-
-    // 2. Render tabs
-    function renderStudioTabs() {
-      const studios = getStudios();
-      studioTabsContainer.innerHTML = '';
-      studios.forEach(s => {
-        const btn = document.createElement('button');
-        btn.className = 'studio-tab';
-        
-        const img = document.createElement('img');
-        img.src = s.img;
-        img.alt = s.name;
-
-        // Set fallback if image doesn't exist
-        img.onerror = () => { img.src = 'images/placeholder.jpg'; };
-
-        btn.appendChild(img);
-        btn.addEventListener('click', () => {
-          setStudioFilter(s.name);
-          setActiveTab(s.name);
-        });
-        studioTabsContainer.appendChild(btn);
-      });
-    }
-
-    // 3. Highlight active tab
-    function setActiveTab(name) {
-      document.querySelectorAll('#studioTabs button').forEach(btn => {
-        btn.classList.toggle('active', btn.querySelector('img').alt === name);
-      });
-    }
-
-    // 4. Filter shows by studio
-    function setStudioFilter(studio){
-      if(studio === 'All') state.filtered = null;
-      else state.filtered = state.items.filter(i => i.studio.toLowerCase() === studio.toLowerCase());
-      render();
     }
 
     function byshow(cat){
@@ -320,7 +196,6 @@
         { dest: rowTheBomb, empty: emptyTheBomb, cat: 'TheBomb' },
         { dest: rowSectorfall, empty: emptySectorfall, cat: 'Sectorfall' },
         { dest: rowSkirmishStudies, empty: emptySkirmishStudies, cat: 'SkirmishStudies' },
-        { dest: rowMovies, empty: emptyMovies, cat: 'Movies'}
       ];
 
       let delay = 0;
@@ -340,21 +215,6 @@
           delay += 170; // 170ms stagger between rows
         }
       });
-
-      // --- Featured handling: do NOT auto-overwrite the featured item here ---
-      // Ensure the hero displays the currently-selected featured item (without re-calling setFeatured)
-      if (state.featuredId) {
-        const current = state.items.find(i => String(i.id) === String(state.featuredId));
-        if (current) {
-          // update the hero UI directly (no setFeatured call, to avoid recursion/overwrites)
-          heroTitle.textContent = current.title;
-          heroMeta.textContent = `${current.show} | ${yearOrDash(current.se)} | ${yearOrDash(current.year)}`;
-          heroBg.style.backgroundImage = current.poster ? `url("${current.poster}")` : 'linear-gradient(135deg,#11182a,#0c1120)';
-          heroPoster.src = current.vertposter || '';
-          heroPoster.alt = current.title + ' poster';
-          heroPlay.onclick = () => openPlayer(current);
-        }
-      }
     }
 
     // ===== Player =====
@@ -464,15 +324,5 @@
       } else {
         state.items = [...saved];
       }
-
-      if(!state.items.length){
-      } else {
-        setFeatured(mostRecentItem.id); // use the real most recent item
-      }
-      
-
-      // Initialize tabs
-      setActiveTab('All');
-      renderStudioTabs();
       render();
     })();

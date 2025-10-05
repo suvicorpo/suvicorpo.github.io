@@ -72,14 +72,61 @@
         </div>
       </div>
 
-    <!-- Shows -->
-    <section class="row" aria-labelledby="row-shows">
-      <div class="row-header"><h3 id="row-movies" class="row-title">Shows</h3></div>
-      <div id="rowShows" class="scroller" role="list"></div>
-      <div id="emptyShows" class="empty muted" style="display:none;">Series not found!</div>
+    <!-- Wafront -->
+    <section class="row" aria-labelledby="row-wafront">
+      <div class="row-header"><h3 id="row-wafront" class="row-title">Wafront</h3></div>
+      <div id="rowWafront" class="scroller" role="list"></div>
+      <div id="emptyWafront" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Pivonian Academy -->
+    <section class="row" aria-labelledby="row-pivonian">
+      <div class="row-header"><h3 id="row-pivonian" class="row-title">Pivonian Academy<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div id="rowPivonian" class="scroller" role="list"></div>
+      <div id="emptyPivonian" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- The Bomb -->
+    <section class="row" aria-labelledby="row-thebomb">
+      <div class="row-header"><h3 id="row-thebomb" class="row-title">The Bomb</h3></div>
+      <div id="rowTheBomb" class="scroller" role="list"></div>
+      <div id="emptyTheBomb" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Sectorfall -->
+    <section class="row" aria-labelledby="row-sectorfall">
+      <div class="row-header"><h3 id="row-sectorfall" class="row-title">Sectorfall: Hell will Rain<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div id="rowSectorfall" class="scroller" role="list"></div>
+      <div id="emptySectorfall" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Skirmish Studies -->
+    <section class="row" aria-labelledby="row-skirmishstudies">
+      <div class="row-header"><h3 id="row-skirmishstudies" class="row-title">Skirmish Studies<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div id="rowSkirmishStudies" class="scroller" role="list"></div>
+      <div id="emptySkirmishStudies" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- The Battle -->
+    <section class="row" aria-labelledby="row-thebattle">
+      <div class="row-header"><h3 id="row-thebattle" class="row-title">The Battle<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div id="rowTheBattle" class="scroller" role="list"></div>
+      <div id="emptyTheBattle" class="empty muted" style="display:none;">Series not found!</div>
     </section>
 
   </main>
+
+  <!-- ===== Player Modal ===== -->
+  <div id="player" class="player" aria-modal="true" role="dialog" aria-label="Player">
+    <div class="player-inner">
+      <video id="videoEl" controls preload="metadata" playsinline></video>
+      <div class="player-info">
+        <div class="player-title" id="playerTitle">—</div>
+        <div class="player-desc" id="playerDesc">—</div>
+      </div>
+      <button id="playerClose" class="btn ghost player-close">Close</button>
+    </div>
+  </div>
 
   <footer>
     <div class="footer-inner">
@@ -88,7 +135,7 @@
     </div>
   </footer>
 
-  <script type="module" src="js/viewpoint.js"></script>
+  <script type="module" src="js/shows.js"></script>
   <script type="module" src="js/firebase-profile.js"></script>
 </body>
 </html>

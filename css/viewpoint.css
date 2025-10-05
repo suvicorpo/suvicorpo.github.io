@@ -306,6 +306,10 @@
       height: 50px; /* Adjust the height as needed */
     }
 
+    .mediumBuffer {
+      height: 200px;
+    }
+
     .largeBuffer {
       height: 400px; /* Adjust the height as needed */
     }
