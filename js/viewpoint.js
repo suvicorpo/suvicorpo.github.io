@@ -360,7 +360,6 @@
 
     // ===== Player =====
     async function openPlayer(item){
-        const subData = await fetchSubscriptionData();
         player.style.display='flex';
         videoEl.src = item.src || '';
         videoEl.play().catch(()=>{});
