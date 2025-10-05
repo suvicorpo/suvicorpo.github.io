@@ -15,10 +15,9 @@
     loadProfile();
 
 
-    // Seed with SERVER paths you actually host (adjust to your filenames)
     const seed = [
       // Movies
-       { id:'m1', title:'The Battle of Paladin Strait', cat:'Movies', poster:'images/placeholder.jpg', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'A sample movie description.', se:'', vertposter:'images/Posters/placeholdervert.png', studio:'OtherNet Studios' },
+      { id:'m1', title:'The Battle of Paladin Strait', cat:'Movies', poster:'images/Posters/TBOPS.png', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'A sample movie description.', se:'', vertposter:'images/Posters/PaladinVert.png', studio:'OtherNet Studios', rt:'19m 11s' },
   ];
 
     const state = {
@@ -62,6 +61,7 @@
       el.className = 'card';
       el.setAttribute('role','listitem');
       if (item.cat !== 'Movies') {
+        const movieID = item
         el.innerHTML = `
           <div class="thumb">
             ${item.poster ? `<img src="${item.poster}" alt="${item.title} poster" loading="lazy">` : `<div style="${makeThumb(item.title).style}">${makeThumb(item.title).text}</div>`}
@@ -70,14 +70,15 @@
             <div class="title">${item.title}</div>
             <div class="meta">${yearOrDash(item.se)} | ${yearOrDash(item.year)}</div>
           </div>`;
-          el.querySelector('.thumb').addEventListener('click', ()=> openPlayer(item));
+          el.querySelector('.thumb').addEventListener('click', ()=> openMoviePopup(item));
+          return movieID;
       } else {
         el.innerHTML = `
           <div class="movie-thumb">
             ${item.vertposter ? `<img src="${item.vertposter}" alt="${item.title} poster" loading="lazy">` : `<div style="${makeThumb(item.title).style}">${makeThumb(item.title).text}</div>`}
           </div>`;
         el.style.height = '350px';
-        el.querySelector('.movie-thumb').addEventListener('click', ()=> openPlayer(item));
+        el.querySelector('.movie-thumb').addEventListener('click', ()=> openMoviePopup(item));
       }
       return el;
     }
@@ -93,7 +94,7 @@
 
         if(!list.length){
           rowContainer.classList.remove('visible');
-          rowContainer.classList.add('hidden'); // just hide with CSS, preserves spacing if needed
+          rowContainer.classList.add('hidden');
           return;
         }
 
@@ -189,10 +190,17 @@
     const openProfileBtn = document.getElementById('profilebtn');
     const closeProfileBtn = document.getElementById('closeProfileBtn');
     const profilePanel = document.getElementById('profilePanel');
+    const moviePanel = document.getElementById('movie-popup');
+    const movieBanner = document.getElementById('movie-banner');
+    const moviePlayBtn = document.getElementById('playbtn');
+    const movieTitle = document.getElementById('movie-title');
+    const movieDesc = document.getElementById('movie-desc');
+    const movieInfo = document.getElementById('movie-info');
 
+    console.log("Movie info:", movieBanner, moviePanel, moviePlayBtn);
     // Notifications Panel
     openNotifBtn.addEventListener('click', () => {
-      notifPanel.style.display = 'flex'; /* Change to 'block' if not using flexbox for centering */
+      notifPanel.style.display = 'flex';
     });
 
     closeNotifBtn.addEventListener('click', () => {
@@ -208,7 +216,7 @@
 
     // Profile Panel
     openProfileBtn.addEventListener('click', () => {
-      profilePanel.style.display = 'flex'; /* Change to 'block' if not using flexbox for centering */
+      profilePanel.style.display = 'flex'; 
     });
 
     closeProfileBtn.addEventListener('click', () => {
@@ -222,11 +230,25 @@
       }
     });
 
+    function openMoviePopup(item) {
+      moviePanel.style.display = 'flex';
+      movieTitle.innerHTML = item.title || "Title";
+      movieDesc.innerHTML = item.desc || "No information about this film";
+      movieBanner.src = item.poster;
+      movieInfo.innerHTML = `${item.year}  ${item.rt}`;
+      moviePlayBtn.addEventListener('click', ()=> openPlayer(item));
+    };
+
+    window.addEventListener('click', (event) => {
+      if (event.target === moviePanel) {
+        moviePanel.style.display = 'none';
+      }
+    });
+
     // ===== Init =====
     (function init(){
       const saved = load(LS_KEY_LIBRARY, []);
       
-      // Update localStorage if seed has changed (new items or differences)
       if(!saved.length || JSON.stringify(saved) !== JSON.stringify(seed)){
         save(LS_KEY_LIBRARY, seed);
         state.items = [...seed];
@@ -234,6 +256,5 @@
         state.items = [...saved];
       }
     
-      // Initialize tabs
       render();
     })();

@@ -84,7 +84,7 @@
       { id:'studio-othernet', title:'OtherNet Studios', show:'studio', poster:'images/Studios/OtherNet.png', src:'', year:2020, desc:'Creators of "The Battle" and "The Bomb" series.', se:'', vertposter:'images/Studios/OtherNet-vert.png', studio:'OtherNet Studios' },     
 
       // Movies
-      { id:'m1', title:'The Battle of Paladin Strait', show:'Movies', poster:'images/placeholder.jpg', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'A sample movie description.', se:'', vertposter:'images/Posters/placeholdervert.png', studio:'OtherNet Studios' },
+      { id:'s42', title:'The Battle of Paladin Strait', show:'Movies', poster:'images/Posters/TBOPS.png', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'A sample movie description.', se:'', vertposter:'images/Posters/PaladinVert.png', studio:'OtherNet Studios' },
   ];
 
     const state = {
