@@ -375,3 +375,20 @@
       font-size: 15px;
       color: #787878;
     }
+
+    .footerLink {
+      text-decoration: underline;
+      text-decoration-color: #5f626b;
+    }
+
+    .powered {
+      color: #363e53;
+      justify-content: left;
+      display: inline;
+      margin-left: 12px;
+    }
+
+    .powered .footerLink {
+      text-decoration: underline;
+      text-decoration-color: #363e53;
+    }

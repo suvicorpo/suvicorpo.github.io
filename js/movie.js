@@ -71,7 +71,7 @@
             <div class="meta">${yearOrDash(item.se)} | ${yearOrDash(item.year)}</div>
           </div>`;
           el.querySelector('.thumb').addEventListener('click', ()=> openMoviePopup(item));
-          return movieID;
+        return movieID;
       } else {
         el.innerHTML = `
           <div class="movie-thumb">

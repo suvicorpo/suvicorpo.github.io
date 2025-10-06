@@ -232,7 +232,7 @@
             ${item.vertposter ? `<img src="${item.vertposter}" alt="${item.title} poster" loading="lazy">` : `<div style="${makeThumb(item.title).style}">${makeThumb(item.title).text}</div>`}
           </div>`;
         el.style.height = '350px';
-        el.querySelector('.movie-thumb').addEventListener('click', ()=> openPlayer(item));
+        el.querySelector('.movie-thumb').addEventListener('click', ()=> openMoviePopup(item));
       }
       return el;
     }
@@ -420,6 +420,12 @@
     const openProfileBtn = document.getElementById('profilebtn');
     const closeProfileBtn = document.getElementById('closeProfileBtn');
     const profilePanel = document.getElementById('profilePanel');
+    const moviePanel = document.getElementById('movie-popup');
+    const movieBanner = document.getElementById('movie-banner');
+    const moviePlayBtn = document.getElementById('playbtn');
+    const movieTitle = document.getElementById('movie-title');
+    const movieDesc = document.getElementById('movie-desc');
+    const movieInfo = document.getElementById('movie-info');
 
     // Notifications Panel
     openNotifBtn.addEventListener('click', () => {
@@ -450,6 +456,21 @@
     window.addEventListener('click', (event) => {
       if (event.target === profilePanel) {
         profilePanel.style.display = 'none';
+      }
+    });
+
+    function openMoviePopup(item) {
+      moviePanel.style.display = 'flex';
+      movieTitle.innerHTML = item.title || "Title";
+      movieDesc.innerHTML = item.desc || "No information about this film";
+      movieBanner.src = item.poster;
+      movieInfo.innerHTML = `${item.year}  ${item.rt}`;
+      moviePlayBtn.addEventListener('click', ()=> openPlayer(item));
+    };
+
+    window.addEventListener('click', (event) => {
+      if (event.target === moviePanel) {
+        moviePanel.style.display = 'none';
       }
     });
 
