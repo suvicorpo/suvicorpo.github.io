@@ -18,6 +18,7 @@
         <button class="navbtn" id="homebtn"><img class="navimg" src="images/icons/home.png"><a href="stream.html">Home</a></button>
         <button class="navbtn" id="moviesbtn"><img class="navimg" src="images/icons/movies.png"><a href="movies.html">Movies</a></button>
         <button class="navbtn" id="showsbtn"><img class="navimg" src="images/icons/series.png"><a href="shows.html">Shows</a></button>
+        <button class="navbtn" id="watchbtn"><img class="navimg" src="images/icons/watch.png"><a href="stream.html">Watchlist</a></button>
       </ul>
     </div>
 
@@ -75,12 +76,17 @@
     
     <div id="movie-popup" class="movie-popup" style="display: none;">
       <div class="movie-content">
-        <img id="movie-banner" class="movie-banner" src="images/placeholder.jpg" alt="poster">
+        <div class="movie-banner-wrapper">
+          <img id="movie-banner" class="movie-banner" src="images/placeholder.jpg" alt="poster">
+          <div class="banner-text">
+            <h2 class="movie-title" id="movie-title">chicken</h2>
+            <p class="movie-info" id="movie-info"></p>
+          </div>
+        </div>
         <div class="movie-header">
-          <h2 id="movie-title">title</h2>
           <button id="playbtn" class="btn ghost">Play</button>
+          <button id="playWatchlist" class="btn ghost">+</button>
         </div>  
-        <p class="movie-info" id="movie-info"></p>
         <p id="movie-desc"></p>
       </div>
     </div>

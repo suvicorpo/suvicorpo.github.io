@@ -17,7 +17,7 @@
 
     const seed = [
       // Movies
-      { id:'m1', title:'The Battle of Paladin Strait', cat:'Movies', poster:'images/Posters/TBOPS.png', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'A sample movie description.', se:'', vertposter:'images/Posters/PaladinVert.png', studio:'OtherNet Studios', rt:'19m 11s' },
+      { id:'m1', title:'The Battle of Paladin Strait', cat:'Movies', poster:'images/Posters/TBOPS.png', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'The epic final battle of the Dema storyline from TwentyOnePilots. Three music videos (Paladin Strait, The Contract, City Walls) turned into a single movie.', se:'', vertposter:'images/Posters/PaladinVert.png', studio:'OtherNet Studios', rt:'19m 11s' },
   ];
 
     const state = {
@@ -193,9 +193,9 @@
     const moviePanel = document.getElementById('movie-popup');
     const movieBanner = document.getElementById('movie-banner');
     const moviePlayBtn = document.getElementById('playbtn');
-    const movieTitle = document.getElementById('movie-title');
     const movieDesc = document.getElementById('movie-desc');
     const movieInfo = document.getElementById('movie-info');
+    const movieTitle = document.getElementById('movie-title');
 
     console.log("Movie info:", movieBanner, moviePanel, moviePlayBtn);
     // Notifications Panel
@@ -237,6 +237,7 @@
       movieBanner.src = item.poster;
       movieInfo.innerHTML = `${item.year}  ${item.rt}`;
       moviePlayBtn.addEventListener('click', ()=> openPlayer(item));
+      
     };
 
     window.addEventListener('click', (event) => {
