@@ -84,10 +84,29 @@
           </div>
         </div>
         <div class="movie-header">
-          <button id="playbtn" class="btn ghost">Play</button>
+          <button id="movie-playbtn" class="btn ghost">Play</button>
           <button id="playWatchlist" class="btn ghost">+</button>
         </div>  
         <p id="movie-desc"></p>
+      </div>
+    </div>
+
+    <div id="show-popup" class="show-popup" style="display: none;">
+      <div class="show-content">
+        <div class="show-banner-wrapper">
+          <img id="show-banner" class="show-banner" src="images/placeholder.jpg" alt="poster">
+          <div class="banner-text">
+            <h2 class="show-title" id="show-title">chicken</h2>
+            <p class="show-info" id="show-info"></p>
+          </div>
+        </div>
+        <div class="show-header">
+          <button id="show-playbtn" class="btn ghost">Play</button>
+          <button id="playWatchlist" class="btn ghost">+</button>
+        </div>  
+        <p id="show-desc"></p>
+        <h2 class="other-text" id="series-text"></h2>
+        <div id="episodeListContainer" class="episode-list"></div>
       </div>
     </div>
 
@@ -128,6 +147,13 @@
       <div class="row-header"><h3 id="row-wafront" class="row-title">Wafront</h3></div>
       <div id="rowWafront" class="scroller" role="list"></div>
       <div id="emptyWafront" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Continue -->
+    <section class="row" aria-labelledby="row-continue">
+      <div class="row-header"><h3 id="row-wafront" class="row-title">Continue Watching</h3></div>
+      <div id="rowContinue" class="scroller" role="list"></div>
+      <div id="emptyContinue" class="empty muted" style="display:none;">Watch something to have items appear here.</div>
     </section>
 
     <!-- Pivonian Academy -->

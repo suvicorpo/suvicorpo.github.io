@@ -44,7 +44,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
       subscriptions: "Free",
       status: "Active",
       renewal: "",
-      profilepic: "images/profiles/profile-blue.png"
+      profilepic: "images/profiles/profile-blue.png",
     });
 
     window.location.href = "stream.html"; // redirect to stream

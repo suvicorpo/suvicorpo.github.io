@@ -335,7 +335,7 @@
       margin-right: 8px;
     }
 
-    .movie-popup {
+    .movie-popup, .show-popup {
       display: none; /* Hidden by default */
       position: fixed; /* Stays in place */
       z-index: 1; /* Sits on top */
@@ -349,27 +349,28 @@
       align-items: center; /* Center content vertically */
     }
 
-    .movie-content {
+    .movie-content, .show-content {
       padding: 20px;
       position: relative;
       backdrop-filter:saturate(1.2) blur(6px);
       width: 90%; /* Could be adjusted */
       max-width: 800px; /* Max width for better responsiveness */
       height: auto; /* Adjust height as needed */
-      max-height: 80vh; /* Limit max height */
       border: 1px solid #1f2430;
       border-radius: 5px;
       background-color: #0f1117; /* Panel background color */
+      overflow-y: auto; 
+      max-height: 80vh; /* keep within screen height */
     }
 
-    .movie-banner-wrapper {
+    .movie-banner-wrapper, .show-banner-wrapper {
       position: relative;
       margin: -20px -20px 20px -20px; /* bleed out of padding */
       overflow: hidden; /* keep gradient & image clipped to border-radius */
       border-radius: 5px 5px 0 0; /* round only the top edges */
     }
 
-    .movie-banner-wrapper::after {
+    .movie-banner-wrapper::after, .show-banner-wrapper::after {
       content: "";
       position: absolute;
       bottom: 0;
@@ -380,14 +381,14 @@
       pointer-events: none; /* make sure it doesn't block clicks */
     }
 
-    .movie-banner {
+    .movie-banner, .show-banner {
       display: block;
       width: 100%;
       max-height: 300px;
       object-fit: cover;
     }
 
-    .movie-info {
+    .movie-info, .show-info {
       font-weight: 700;
       font-size: 15px;
       color: #787878;
@@ -428,4 +429,52 @@
     .powered .footerLink {
       text-decoration: underline;
       text-decoration-color: #363e53;
+    }
+
+    .episode-list {
+      margin-top: 20px;
+      padding: 10px;
+    }
+
+    .episode-list-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .episode-card {
+      background: #141a28;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .2s, opacity .2s;
+    }
+
+    .episode-card:hover {
+      transform: scale(1.03);
+    }
+
+    .episode-poster {
+      width: 100%;
+      display: block;
+    }
+
+    .episode-info {
+      padding: 6px 10px;
+    }
+
+    .episode-info h4 {
+      font-size: 1rem;
+      margin: 0;
+      color: #fff;
+    }
+
+    .episode-info p {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin: 2px 0 0;
+    }
+
+    .other-text {
+      display: inline;
     }

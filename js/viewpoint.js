@@ -116,6 +116,8 @@
     const emptySkirmishStudies = document.getElementById('emptySkirmishStudies');
     const emptyMovies = document.getElementById('emptyMovies');
     const rowMovies = document.getElementById('rowMovies')
+    const rowContinue = document.getElementById('rowContinue')
+    const emptyContinue = document.getElementById('emptyContinue')
 
     const heroBg = document.getElementById('heroBg');
     const heroPoster = document.getElementById('heroPoster');
@@ -211,6 +213,57 @@
       heroPlay.onclick = () => openPlayer(item);
     }
 
+    function showEpisodes(showName) {
+      const container = document.getElementById('episodeListContainer');
+      container.innerHTML = ''; // clear old content
+
+      // Filter episodes for the chosen show
+      const episodes = state.items.filter(i => i.show === showName && i.category === 'show');
+
+      if (episodes.length === 0) {
+        container.innerHTML = `<p style="color:#ccc;">No episodes found for ${showName}</p>`;
+        return;
+      }
+
+      // Sort by season + episode number (based on se: 'Season X • Episode Y')
+      episodes.sort((a, b) => {
+        const [sA, eA] = parseSeasonEpisode(a.se);
+        const [sB, eB] = parseSeasonEpisode(b.se);
+        if (sA !== sB) return sA - sB;
+        return eA - eB;
+      });
+
+      // Build episode list elements
+      const list = document.createElement('div');
+      list.className = 'episode-list-grid';
+
+      episodes.forEach(ep => {
+        const item = document.createElement('div');
+        item.className = 'episode-card';
+        item.innerHTML = `
+          <img src="${ep.poster}" alt="${ep.title}" class="episode-poster">
+          <div class="episode-info">
+            <h4>${ep.title}</h4>
+            <p>${ep.se}</p>
+          </div>
+        `;
+
+        // When clicked, open player
+        item.addEventListener('click', () => openPlayer(ep));
+
+        list.appendChild(item);
+      });
+
+      container.appendChild(list);
+    }
+
+    // Helper to extract numbers from se like "Season 2 • Episode 5"
+    function parseSeasonEpisode(se) {
+      const match = /Season\s*(\d+).*Episode\s*(\d+)/i.exec(se);
+      return match ? [parseInt(match[1]), parseInt(match[2])] : [0, 0];
+    }
+
+
 
     function card(item){
       const el = document.createElement('article');
@@ -225,7 +278,7 @@
             <div class="title">${item.title}</div>
             <div class="meta">${yearOrDash(item.se)} | ${yearOrDash(item.year)}</div>
           </div>`;
-          el.querySelector('.thumb').addEventListener('click', ()=> openPlayer(item));
+          el.querySelector('.thumb').addEventListener('click', ()=> openShowPopup(item));
       } else {
         el.innerHTML = `
           <div class="movie-thumb">
@@ -310,7 +363,29 @@
         list.forEach(i => dest.appendChild(card(i)));
     }
 
+    function renderContinue() {
+      const rows = [
+        { dest: rowContinue, empty: emptyContinue, cat: usrData.contineWatching },
+      ];
 
+      let delay = 0;
+      rows.forEach(r => {
+        const list = byshow(r.cat);
+        console.log('Row:', r.cat, 'Found:', list.length);
+        renderRow(r.dest, r.empty, list);
+
+        // Remove previous transition
+        r.dest.parentElement.classList.remove('visible');
+
+        if(list.length){
+          // Add staggered fade-in
+          setTimeout(() => {
+            r.dest.parentElement.classList.add('visible');
+          }, delay);
+          delay += 170; // 170ms stagger between rows
+        }
+      });
+    }
 
     function render(){
       const rows = [
@@ -355,6 +430,7 @@
           heroPlay.onclick = () => openPlayer(current);
         }
       }
+      renderContinue;
     }
 
     // ===== Player =====
@@ -422,10 +498,17 @@
     const profilePanel = document.getElementById('profilePanel');
     const moviePanel = document.getElementById('movie-popup');
     const movieBanner = document.getElementById('movie-banner');
-    const moviePlayBtn = document.getElementById('playbtn');
+    const moviePlayBtn = document.getElementById('movie-playbtn');
     const movieDesc = document.getElementById('movie-desc');
     const movieInfo = document.getElementById('movie-info');
     const movieTitle = document.getElementById('movie-title');
+    const showPanel = document.getElementById('show-popup');
+    const showBanner = document.getElementById('show-banner');
+    const showPlayBtn = document.getElementById('show-playbtn');
+    const showDesc = document.getElementById('show-desc');
+    const showInfo = document.getElementById('show-info');
+    const showTitle = document.getElementById('show-title');
+    const seriesOther = document.getElementById('series-text')
 
     // Notifications Panel
     openNotifBtn.addEventListener('click', () => {
@@ -469,9 +552,21 @@
       
     };
 
+    function openShowPopup(item) {
+      showPanel.style.display = 'flex';
+      showTitle.innerHTML = item.title || "Title";
+      showDesc.innerHTML = item.desc || "No information about this show";
+      showBanner.src = item.poster;
+      showInfo.innerHTML = `${item.year}  ${item.se}`;
+      showPlayBtn.addEventListener('click', ()=> openPlayer(item));     
+      showEpisodes(item.show);
+      seriesOther.innerHTML = `Other episodes of ${item.show}` || "this series";
+    }
+
     window.addEventListener('click', (event) => {
-      if (event.target === moviePanel) {
+      if (event.target === moviePanel || event.target === showPanel) {
         moviePanel.style.display = 'none';
+        showPanel.style.display = 'none'
       }
     });
 

@@ -49,7 +49,7 @@ export async function fetchUserData() {
             const subStatus = data.status || "Inactive";
             const subType = data.subscriptions || "None";
             const usrName = data.name || "Profile";
-            resolve({ subStatus, subType, usrName });
+            const continueWatching = data.continue || "None";
           } else {
             console.log("No such user data!");
             resolve({ subStatus: "Inactive", subType: "None", name: "Profile" });
