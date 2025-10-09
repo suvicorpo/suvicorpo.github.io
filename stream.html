@@ -54,7 +54,7 @@
           <h1 class="profile-header" id="profile-name"></h1>
             <div class="profile-picture">
                 <img class="profile-img" src="images/profiles/profile-blue.png" alt="Profile Picture">
-                <a href="images/profiles/profile-blue.png" target="_blank"><img class="edit-icon" src="images/icons/edit-button.png" alt="Edit Icon">Change Profile Picture</a>
+                <button id="changePfp"><img class="edit-icon" src="images/icons/edit-button.png" alt="Edit Icon">Change Profile Picture</button>
             </div>
             <div class="profile-details">
                 <p></p>
@@ -74,6 +74,17 @@
         </div>
       </div>
 
+      <div class="pfpChangerPanel" id="pfpChangerPanel" style="display: none;">
+        <div class="pfpContent" id="pfpContent">
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-red.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-orange.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-yellow.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-green.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-blue.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-pink.png"></button>
+        </div>
+      </div>
+
     <div id="movie-popup" class="movie-popup" style="display: none;">
       <div class="movie-content">
         <div class="movie-banner-wrapper">
@@ -85,7 +96,6 @@
         </div>
         <div class="movie-header">
           <button id="movie-playbtn" class="btn ghost">Play</button>
-          <button id="playWatchlist" class="btn ghost">+</button>
         </div>  
         <p id="movie-desc"></p>
       </div>
@@ -102,7 +112,6 @@
         </div>
         <div class="show-header">
           <button id="show-playbtn" class="btn ghost">Play</button>
-          <button id="playWatchlist" class="btn ghost">+</button>
         </div>  
         <p id="show-desc"></p>
         <h2 class="other-text" id="series-text"></h2>
@@ -126,6 +135,7 @@
       </div>
     </section>
 
+  
     <div id="studioTabs"></div>
 
     <!-- The Battle -->

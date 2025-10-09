@@ -248,7 +248,7 @@
       width:24px; height:24px; object-fit:cover; vertical-align:middle; display: inline;
     }
 
-    .notifications-panel, .profile-panel {
+    .notifications-panel, .profile-panel, .pfpChangerPanel {
       display: none; /* Hidden by default */
       position: fixed; /* Stays in place */
       z-index: 1; /* Sits on top */
@@ -262,7 +262,7 @@
       align-items: center; /* Center content vertically */
     }
 
-    .notifications-content, .profile-content {
+    .notifications-content, .profile-content, .pfpContent {
       background-color: #0f1117aa; /* Panel background color */
       margin: auto; /* Center the box */
       padding: 20px;
@@ -477,4 +477,9 @@
 
     .other-text {
       display: inline;
+    }
+
+    .profileItem {
+      height: 128px;
+      width: 128px;
     }

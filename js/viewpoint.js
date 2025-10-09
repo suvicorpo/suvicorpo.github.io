@@ -437,7 +437,7 @@
     async function openPlayer(item){
         player.style.display='flex';
         videoEl.src = item.src || '';
-        videoEl.play().catch(()=>{});
+        videoEl.play().catch(()=>{});z
         playerTitle.textContent = item.title;
         playerDesc.textContent = item.desc || `${item.show} • ${yearOrDash(item.year)}`;
 
@@ -493,26 +493,33 @@
     const openNotifBtn = document.getElementById('notifbtn');
     const closeNotifBtn = document.getElementById('closeNotifBtn');
     const notifPanel = document.getElementById('notificationsPanel');
+
     const openProfileBtn = document.getElementById('profilebtn');
     const closeProfileBtn = document.getElementById('closeProfileBtn');
     const profilePanel = document.getElementById('profilePanel');
+
     const moviePanel = document.getElementById('movie-popup');
     const movieBanner = document.getElementById('movie-banner');
     const moviePlayBtn = document.getElementById('movie-playbtn');
     const movieDesc = document.getElementById('movie-desc');
     const movieInfo = document.getElementById('movie-info');
     const movieTitle = document.getElementById('movie-title');
+
     const showPanel = document.getElementById('show-popup');
     const showBanner = document.getElementById('show-banner');
     const showPlayBtn = document.getElementById('show-playbtn');
     const showDesc = document.getElementById('show-desc');
     const showInfo = document.getElementById('show-info');
     const showTitle = document.getElementById('show-title');
-    const seriesOther = document.getElementById('series-text')
+    const seriesOther = document.getElementById('series-text');
+
+    const pfpChanger = document.getElementById('pfpChangerPanel');
+    const pfpChangeBtn = document.getElementById('changePfp');
+
 
     // Notifications Panel
     openNotifBtn.addEventListener('click', () => {
-      notifPanel.style.display = 'flex'; /* Change to 'block' if not using flexbox for centering */
+      notifPanel.style.display = 'flex';
     });
 
     closeNotifBtn.addEventListener('click', () => {
@@ -526,13 +533,22 @@
       }
     });
 
+    openProfileBtn.addEventListener('hover', () => {
+      accountDropdown.style.display = 'flex';
+    });
+
     // Profile Panel
     openProfileBtn.addEventListener('click', () => {
-      profilePanel.style.display = 'flex'; /* Change to 'block' if not using flexbox for centering */
+      profilePanel.style.display = 'flex';
     });
 
     closeProfileBtn.addEventListener('click', () => {
       profilePanel.style.display = 'none';
+    });
+
+    pfpChangeBtn.addEventListener('click', () => {
+      console.log('Opening profile changer')
+      pfpChanger.style.display = 'flex';
     });
 
     // Close popup when clicking outside the content
@@ -561,7 +577,7 @@
       showPlayBtn.addEventListener('click', ()=> openPlayer(item));     
       showEpisodes(item.show);
       seriesOther.innerHTML = `Other episodes of ${item.show}` || "this series";
-    }
+    };
 
     window.addEventListener('click', (event) => {
       if (event.target === moviePanel || event.target === showPanel) {
@@ -570,11 +586,12 @@
       }
     });
 
+
+
     // ===== Init =====
     (function init(){
       const saved = load(LS_KEY_LIBRARY, []);
       
-      // Update localStorage if seed has changed (new items or differences)
       if(!saved.length || JSON.stringify(saved) !== JSON.stringify(seed)){
         save(LS_KEY_LIBRARY, seed);
         state.items = [...seed];
@@ -584,7 +601,7 @@
 
       if(!state.items.length){
       } else {
-        setFeatured(mostRecentItem.id); // use the real most recent item
+        setFeatured(mostRecentItem.id);
       }
       
 
