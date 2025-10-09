@@ -483,3 +483,25 @@
       height: 128px;
       width: 128px;
     }
+
+    .changePfp {
+      background-color: #89898900;
+      border-color: #00000000;
+      color:#fff;
+    }
+
+    .progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress {
+      height: 100%;
+      background: #00b4ff;
+      transition: width 0.3s;
+    }

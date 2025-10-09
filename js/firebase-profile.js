@@ -1,7 +1,7 @@
 // Import Firebase SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc,setDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { firebaseConfig } from "./firebase-conf.js"
 
 // Init Firebase
@@ -34,8 +34,9 @@ async function populateProfile(userId) {
   } catch (err) {
     console.error("Error getting profile:", err);
   }
-}
+};
 
+// Fetch user data (for use in other modules)
 export async function fetchUserData() {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(auth, async (user) => {
@@ -46,12 +47,15 @@ export async function fetchUserData() {
 
           if (docSnap.exists()) {
             const data = docSnap.data();
-            const subStatus = data.status || "Inactive";
-            const subType = data.subscriptions || "None";
-            const usrName = data.name || "Profile";
+            resolve({
+              subStatus: data.status || "Inactive",
+              subType: data.subscriptions || "None",
+              usrName: data.name || "Profile",
+              profilepic: data.profilepic || "images/profiles/profile-blue.png"
+            });
           } else {
             console.log("No such user data!");
-            resolve({ subStatus: "Inactive", subType: "None", name: "Profile" });
+            resolve({ subStatus: "Inactive", subType: "None", usrName: "Profile", profilepic: "images/profiles/profile-blue.png" });
           }
         } catch (err) {
           console.error("Error getting profile:", err);
@@ -59,17 +63,55 @@ export async function fetchUserData() {
         }
       } else {
         console.log("No user signed in");
-        resolve({ subStatus: "Inactive", subType: "None", name: "Profile" });
+        resolve({ subStatus: "Inactive", subType: "None", usrName: "Profile", profilepic: "images/profiles/profile-blue.png" });
       }
     });
   });
-}
+};
+
+export async function updateUserProfilePic(newPicUrl) {
+  const user = auth.currentUser;
+  if (!user) throw new Error('No user is currently signed in.');
+  const userRef = doc(db, 'users', user.uid);
+  await updateDoc(userRef, { profilepic: newPicUrl });
+};
+
+// ✅ Save watch progress
+export async function updateContinueWatching(item, currentTime, duration) {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid, "continueWatching", item.id);
+  await setDoc(userRef, {
+    id: item.id,
+    title: item.title,
+    show: item.show,
+    poster: item.poster,
+    src: item.src,
+    position: currentTime,
+    duration: duration,
+    lastWatched: new Date().toISOString(),
+  });
+};
+
+// ✅ Get continue watching list
+export async function fetchContinueWatching() {
+  const user = auth.currentUser;
+  if (!user) return [];
+
+  const cwRef = collection(db, "users", user.uid, "continueWatching");
+  const q = query(cwRef, orderBy("lastWatched", "desc"));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => doc.data());
+};
 
 // Listen for auth state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
     populateProfile(user.uid);
     fetchUserData(user.uid);
+    fetchContinueWatching(user.uid);
+    updateContinueWatching(user.uid);
   } else {
     window.location.href = "login.html"; // redirect if not logged in
   }

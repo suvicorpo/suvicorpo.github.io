@@ -1,6 +1,6 @@
     // ===== Data + Persistence =====
     const LS_KEY_LIBRARY = 'suvi_plus_library_v2';
-    import { fetchUserData } from './firebase-profile.js';
+    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching } from './firebase-profile.js';
 
     async function loadProfile() {
         try {
@@ -41,7 +41,7 @@
 
       // The Battle Season 3 (upcoming, placeholders)
       { id:'s32', title:'Slaughtered', show:'TheBattle', poster:'images/Posters/TBS3E1.png', src:'videos/TheBattle/TheBattle-S3-E1.mp4', year:2025, desc:'Season 3', se:'Season 3 • Episode 1', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions', sub:'Free', genre:'', category:'show' },
-      // { id:'s33', title:'Open Warfare', show:'TheBattle', poster:'images/Posters/TBS3E2.png', src:'videos/TheBattle/TheBattle-S3-E2.mp4', year:2025, desc:'Season 3', se:'Season 3 • Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions', sub:'Premium', genre:'', category:'show' },
+      { id:'s33', title:'Open Warfare', show:'TheBattle', poster:'images/Posters/TBS3E2.png', src:'videos/TheBattle/TheBattle-S3-E2.mp4', year:2025, desc:'Season 3', se:'Season 3 • Episode 2', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions', sub:'Premium', genre:'', category:'show' },
       // { id:'s34', title:'Corruption', show:'TheBattle', poster:'images/Posters/TBS3E3.png', src:'videos/TheBattle/TheBattle-S3-E3.mp4', year:2025, desc:'Season 3', se:'Season 3 • Episode 3', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions', sub:'Premium', genre:'', category:'show' },
       // { id:'s35', title:'Double Crossed', show:'TheBattle', poster:'images/Posters/TBS3E4.png', src:'videos/TheBattle/TheBattle-S3-E4.mp4', year:2025, desc:'Season 3', se:'Season 3 • Episode 4', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions', sub:'Premium', genre:'', category:'show' },
       // { id:'s36', title:'Battle of East Valley', show:'TheBattle', poster:'images/Posters/TBS3E5.png', src:'videos/TheBattle/TheBattle-S3-E5.mp4', year:2025, desc:'Season 3', se:'Season 3 • Episode 5', vertposter:'images/Posters/placeholdervert.png', studio:'Tanky Productions', sub:'Premium', genre:'', category:'show' },
@@ -263,8 +263,6 @@
       return match ? [parseInt(match[1]), parseInt(match[2])] : [0, 0];
     }
 
-
-
     function card(item){
       const el = document.createElement('article');
       el.className = 'card';
@@ -363,27 +361,40 @@
         list.forEach(i => dest.appendChild(card(i)));
     }
 
-    function renderContinue() {
-      const rows = [
-        { dest: rowContinue, empty: emptyContinue, cat: usrData.contineWatching },
-      ];
+    async function renderContinue() {
+      const list = await fetchContinueWatching();
+      const row = document.getElementById('rowContinue');
+      const empty = document.getElementById('emptyContinue');
 
-      let delay = 0;
-      rows.forEach(r => {
-        const list = byshow(r.cat);
-        console.log('Row:', r.cat, 'Found:', list.length);
-        renderRow(r.dest, r.empty, list);
+      row.innerHTML = '';
 
-        // Remove previous transition
-        r.dest.parentElement.classList.remove('visible');
+      if (!list.length) {
+        empty.style.display = 'block';
+        return;
+      }
 
-        if(list.length){
-          // Add staggered fade-in
-          setTimeout(() => {
-            r.dest.parentElement.classList.add('visible');
-          }, delay);
-          delay += 170; // 170ms stagger between rows
-        }
+      empty.style.display = 'none';
+
+      list.forEach(item => {
+        const el = document.createElement('article');
+        el.className = 'card';
+        el.innerHTML = `
+          <div class="thumb">
+            <img src="${item.poster}" alt="${item.title}">
+            <div class="progress-bar">
+              <div class="progress" style="width:${(item.position / item.duration) * 100}%"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="title">${item.title}</div>
+            <div class="meta">${item.show}</div>
+          </div>
+        `;
+        el.querySelector('.thumb').addEventListener('click', () => {
+          openPlayer(item);
+          videoEl.currentTime = item.position || 0;
+        });
+        row.appendChild(el);
       });
     }
 
@@ -430,14 +441,13 @@
           heroPlay.onclick = () => openPlayer(current);
         }
       }
-      renderContinue;
     }
 
     // ===== Player =====
     async function openPlayer(item){
         player.style.display='flex';
         videoEl.src = item.src || '';
-        videoEl.play().catch(()=>{});z
+        videoEl.play().catch(()=>{});
         playerTitle.textContent = item.title;
         playerDesc.textContent = item.desc || `${item.show} • ${yearOrDash(item.year)}`;
 
@@ -454,6 +464,16 @@
             //playerTitle.textContent = item.title;
             //playerDesc.textContent = item.desc || `${item.show} • ${yearOrDash(item.year)}`;            
         //}
+
+        // Remove if fully watched
+        videoEl.onended = async () => {
+          videoEnd(item)
+        };
+
+        // Track time updates
+        videoEl.ontimeupdate = async () => {
+          videoUpdate(item);
+        };
     }
 
     function closePlayer(){
@@ -461,7 +481,8 @@
       videoEl.pause();
       videoEl.removeAttribute('src');
       videoEl.load();
-    }
+    };
+
     playerClose.addEventListener('click', closePlayer);
     player.addEventListener('click', (e)=>{ if(e.target===player) closePlayer(); });
     document.addEventListener('keydown', (e)=>{
@@ -474,6 +495,19 @@
         if(e.key==='ArrowDown') videoEl.volume = Math.max(0, videoEl.volume - 0.1);
       }
     });
+
+    async function videoUpdate(item) {
+      if (!videoEl.duration) return;
+      const progress = videoEl.currentTime / videoEl.duration;
+      // Save progress every 10 seconds or if over 10%
+      if (videoEl.currentTime % 10 < 1 || progress > 0.9) {
+        await updateContinueWatching(item, videoEl.currentTime, videoEl.duration);
+      }
+    }
+
+    async function videoEnd(item) {
+      await updateContinueWatching(item, videoEl.duration, videoEl.duration);
+    }
 
     // ===== Search =====
     //searchInput.addEventListener('input', ()=>{
@@ -513,9 +547,12 @@
     const showTitle = document.getElementById('show-title');
     const seriesOther = document.getElementById('series-text');
 
+    // === Profile Picture Changer ===
     const pfpChanger = document.getElementById('pfpChangerPanel');
     const pfpChangeBtn = document.getElementById('changePfp');
-
+    const pfpImg = document.querySelector('.profile-img'); // main profile image
+    const pfpOptions = document.querySelectorAll('.pfpOption img');
+    const profileNavImg = document.querySelector('.profile-icon')
 
     // Notifications Panel
     openNotifBtn.addEventListener('click', () => {
@@ -524,13 +561,6 @@
 
     closeNotifBtn.addEventListener('click', () => {
       notifPanel.style.display = 'none';
-    });
-
-    // Close popup when clicking outside the content
-    window.addEventListener('click', (event) => {
-      if (event.target === notifPanel) {
-        notifPanel.style.display = 'none';
-      }
     });
 
     openProfileBtn.addEventListener('hover', () => {
@@ -551,11 +581,33 @@
       pfpChanger.style.display = 'flex';
     });
 
-    // Close popup when clicking outside the content
-    window.addEventListener('click', (event) => {
-      if (event.target === profilePanel) {
-        profilePanel.style.display = 'none';
-      }
+    // Open the chooser panel
+    pfpChangeBtn.addEventListener('click', () => {
+      console.log('Opening profile changer');
+      pfpChanger.style.display = 'flex';
+    });
+
+    // Listen to all profile picture option buttons
+    pfpOptions.forEach(img => {
+      img.addEventListener('click', async () => {
+        const newSrc = img.getAttribute('src');
+        console.log('User selected new profile picture:', newSrc);
+
+        try {
+          // Update UI instantly
+          pfpImg.src = newSrc;
+          profileNavImg.src = newSrc;
+          pfpChanger.style.display = 'none';
+
+          // Update Firebase
+          const usrData = await fetchUserData();
+          usrData.profilePic = newSrc;
+          await updateUserProfilePic(newSrc); // define this in firebase-profile.js
+          console.log('Profile picture updated in Firebase.');
+        } catch (err) {
+          console.error('Error updating profile picture:', err);
+        }
+      });
     });
 
     function openMoviePopup(item) {
@@ -580,13 +632,14 @@
     };
 
     window.addEventListener('click', (event) => {
-      if (event.target === moviePanel || event.target === showPanel) {
+      if (event.target === moviePanel || event.target === showPanel || event.target === pfpChanger || event.target === profilePanel || event.target === notifPanel) {
         moviePanel.style.display = 'none';
         showPanel.style.display = 'none'
-      }
+        pfpChanger.style.display = 'none';
+        profilePanel.style.display = 'none';
+        notifPanel.style.display = 'none';
+      };
     });
-
-
 
     // ===== Init =====
     (function init(){
@@ -609,4 +662,5 @@
       setActiveTab('All');
       renderStudioTabs();
       render();
+      renderContinue();
     })();
