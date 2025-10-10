@@ -1,8 +1,9 @@
 // Import Firebase SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc,setDoc, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { firebaseConfig } from "./firebase-conf.js"
+import { getFirestore, doc, getDoc, updateDoc,setDoc, collection, getDocs, query, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { firebaseConfig } from "./firebase-conf.js";
+import { renderContinue } from "./viewpoint.js";
 
 // Init Firebase
 const app = initializeApp(firebaseConfig);
@@ -48,6 +49,7 @@ export async function fetchUserData() {
           if (docSnap.exists()) {
             const data = docSnap.data();
             resolve({
+              uid: auth.currentUser,
               subStatus: data.status || "Inactive",
               subType: data.subscriptions || "None",
               usrName: data.name || "Profile",
@@ -74,7 +76,7 @@ export async function updateUserProfilePic(newPicUrl) {
   if (!user) throw new Error('No user is currently signed in.');
   const userRef = doc(db, 'users', user.uid);
   await updateDoc(userRef, { profilepic: newPicUrl });
-};
+}
 
 // ✅ Save watch progress
 export async function updateContinueWatching(item, currentTime, duration) {
@@ -91,19 +93,32 @@ export async function updateContinueWatching(item, currentTime, duration) {
     position: currentTime,
     duration: duration,
     lastWatched: new Date().toISOString(),
+    se: item.se,
+    year: item.year,
+    sub: item.sub
   });
-};
+}
 
 // ✅ Get continue watching list
 export async function fetchContinueWatching() {
-  const user = auth.currentUser;
-  if (!user) return [];
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return resolve([]);
+      try {
+        const cwRef = collection(db, "users", user.uid, "continueWatching");
+        const q = query(cwRef, orderBy("lastWatched", "desc"));
+        const snapshot = await getDocs(q);
+        resolve(snapshot.docs.map(doc => doc.data()));
+      } catch (err) {
+        console.error('Error fetching continueWatching:', err);
+        reject(err);
+      }
+    });
+  });
+}
 
-  const cwRef = collection(db, "users", user.uid, "continueWatching");
-  const q = query(cwRef, orderBy("lastWatched", "desc"));
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => doc.data());
-};
+export async function deleteContinue(item) {
+}
 
 // Listen for auth state changes
 onAuthStateChanged(auth, (user) => {
@@ -111,10 +126,13 @@ onAuthStateChanged(auth, (user) => {
     populateProfile(user.uid);
     fetchUserData(user.uid);
     fetchContinueWatching(user.uid);
-    updateContinueWatching(user.uid);
   } else {
     window.location.href = "login.html"; // redirect if not logged in
   }
+
+  window.addEventListener('DOMContentLoaded', async () => {
+    await renderContinue(); // Add this to trigger rendering after page loads
+  });
 });
 
 import { signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";

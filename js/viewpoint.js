@@ -1,12 +1,19 @@
     // ===== Data + Persistence =====
     const LS_KEY_LIBRARY = 'suvi_plus_library_v2';
-    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching } from './firebase-profile.js';
+    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching, deleteContinue } from './firebase-profile.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    import { firebaseConfig } from "./firebase-conf.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
     async function loadProfile() {
         try {
             const usrData = await fetchUserData();
             console.log('Subscription Data:', usrData.subStatus, usrData.subType);
             console.log('Accout name:', usrData.usrName)
+            await renderContinue();
         } catch (err) {
             console.error("Failed to load subscription data:", err);
         }
@@ -263,29 +270,76 @@
       return match ? [parseInt(match[1]), parseInt(match[2])] : [0, 0];
     }
 
-    function card(item){
+    function card(item, options = {}) {
       const el = document.createElement('article');
       el.className = 'card';
       el.setAttribute('role','listitem');
+
+      const showProgress = item.position && item.duration;
+      const progress = showProgress ? (item.position / item.duration) * 100 : 0;
+
+      const thumbContent = item.poster
+        ? `<img src="${item.poster}" alt="${item.title} poster" loading="lazy">`
+        : `<div style="${makeThumb(item.title).style}">${makeThumb(item.title).text}</div>`;
+
+      const progressBar = showProgress
+        ? `<div class="progress-bar"><div class="progress" style="width:${progress}%"></div></div>`
+        : '';
+
+      const removeBtn = options.showRemove && item.show !== 'Movies'
+        ? `<button class="remove-btn" title="Remove">✕</button>`
+        : '';
+
       if (item.show !== 'Movies') {
         el.innerHTML = `
           <div class="thumb">
-            ${item.poster ? `<img src="${item.poster}" alt="${item.title} poster" loading="lazy">` : `<div style="${makeThumb(item.title).style}">${makeThumb(item.title).text}</div>`}
+            ${thumbContent}
+            ${progressBar}
+            ${removeBtn}
           </div>
           <div class="card-body">
             <div class="title">${item.title}</div>
             <div class="meta">${yearOrDash(item.se)} | ${yearOrDash(item.year)}</div>
-          </div>`;
-          el.querySelector('.thumb').addEventListener('click', ()=> openShowPopup(item));
+          </div>
+        `;
+        el.querySelector('.thumb').addEventListener('click', () => openShowPopup(item));
       } else {
         el.innerHTML = `
           <div class="movie-thumb">
             ${item.vertposter ? `<img src="${item.vertposter}" alt="${item.title} poster" loading="lazy">` : `<div style="${makeThumb(item.title).style}">${makeThumb(item.title).text}</div>`}
-          </div>`;
+          </div>
+        `;
         el.style.height = '350px';
-        el.querySelector('.movie-thumb').addEventListener('click', ()=> openMoviePopup(item));
+        el.querySelector('.movie-thumb').addEventListener('click', () => openMoviePopup(item));
       }
+
+      // Handle remove button
+      if (options.showRemove && item.show !== 'Movies') {
+        const btn = el.querySelector('.remove-btn');
+        if (btn) {
+          deleteContinueItem(btn, item)
+        }
+      }
+
       return el;
+    }
+
+    async function deleteContinueItem(btn, item) {
+      const usrData = await fetchUserData();
+      
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        try {
+          const user = usrData.uid;
+          if (!user) return;
+          const ref = doc(db, "users", user.uid, "continueWatching", String(item.id));
+          await deleteDoc(ref);
+          console.log('Removed:', item.title);
+          await renderContinue();
+        } catch (err) {
+          console.error('Failed to remove item:', err);
+        }
+      })
     }
 
     // ===== Studio Tabs =====
@@ -344,58 +398,26 @@
       return source.filter(i => i.show.toLowerCase() === cat.toLowerCase());
     }
 
-    function renderRow(dest, emptyEl, list){
-        const rowContainer = dest.parentElement;
-        dest.innerHTML = '';
-
-        if(!list.length){
-          emptyEl.style.display = 'block';
-          rowContainer.classList.remove('visible');
-          rowContainer.classList.add('hidden'); // just hide with CSS, preserves spacing if needed
-          return;
-        }
-
-        emptyEl.style.display = 'none';
-        rowContainer.classList.remove('hidden');
-        rowContainer.classList.add('visible');
-        list.forEach(i => dest.appendChild(card(i)));
-    }
-
-    async function renderContinue() {
-      const list = await fetchContinueWatching();
-      const row = document.getElementById('rowContinue');
-      const empty = document.getElementById('emptyContinue');
-
-      row.innerHTML = '';
+    function renderRow(dest, emptyEl, list, options = {}) {
+      const rowContainer = dest.parentElement;
+      dest.innerHTML = '';
 
       if (!list.length) {
-        empty.style.display = 'block';
+        emptyEl.style.display = 'block';
+        rowContainer.classList.remove('visible');
+        rowContainer.classList.add('hidden');
         return;
       }
 
-      empty.style.display = 'none';
+      emptyEl.style.display = 'none';
+      rowContainer.classList.remove('hidden');
+      rowContainer.classList.add('visible');
+      list.forEach(i => dest.appendChild(card(i, options)));
+    }
 
-      list.forEach(item => {
-        const el = document.createElement('article');
-        el.className = 'card';
-        el.innerHTML = `
-          <div class="thumb">
-            <img src="${item.poster}" alt="${item.title}">
-            <div class="progress-bar">
-              <div class="progress" style="width:${(item.position / item.duration) * 100}%"></div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="title">${item.title}</div>
-            <div class="meta">${item.show}</div>
-          </div>
-        `;
-        el.querySelector('.thumb').addEventListener('click', () => {
-          openPlayer(item);
-          videoEl.currentTime = item.position || 0;
-        });
-        row.appendChild(el);
-      });
+    export async function renderContinue() {
+      const list = await fetchContinueWatching();
+      renderRow(rowContinue, emptyContinue, list, { showRemove: true });
     }
 
     function render(){
@@ -467,12 +489,27 @@
 
         // Remove if fully watched
         videoEl.onended = async () => {
-          videoEnd(item)
-        };
+          await updateContinueWatching(item, videoEl.duration, videoEl.duration);
+        }
 
         // Track time updates
         videoEl.ontimeupdate = async () => {
-          videoUpdate(item);
+          if (!videoEl.duration) return;
+          const progress = videoEl.currentTime / videoEl.duration;
+          // Save progress every 10 seconds or if over 10%
+          if (videoEl.currentTime % 10 < 1 || progress > 0.9) {
+            await updateContinueWatching(item, videoEl.currentTime, videoEl.duration);
+          }
+        }
+
+        videoEl.addEventListener('timeupdate', () => {
+          if (videoEl.currentTime > 0 && videoEl.duration > 0) {
+            updateContinueWatching(item, videoEl.currentTime, videoEl.duration);
+          }
+        });
+
+        videoEl.onpause = () => {
+          updateContinueWatching(item, videoEl.currentTime, videoEl.duration);
         };
     }
 
@@ -495,19 +532,6 @@
         if(e.key==='ArrowDown') videoEl.volume = Math.max(0, videoEl.volume - 0.1);
       }
     });
-
-    async function videoUpdate(item) {
-      if (!videoEl.duration) return;
-      const progress = videoEl.currentTime / videoEl.duration;
-      // Save progress every 10 seconds or if over 10%
-      if (videoEl.currentTime % 10 < 1 || progress > 0.9) {
-        await updateContinueWatching(item, videoEl.currentTime, videoEl.duration);
-      }
-    }
-
-    async function videoEnd(item) {
-      await updateContinueWatching(item, videoEl.duration, videoEl.duration);
-    }
 
     // ===== Search =====
     //searchInput.addEventListener('input', ()=>{
@@ -632,13 +656,16 @@
     };
 
     window.addEventListener('click', (event) => {
-      if (event.target === moviePanel || event.target === showPanel || event.target === pfpChanger || event.target === profilePanel || event.target === notifPanel) {
+      if (event.target === moviePanel || event.target === showPanel || event.target === profilePanel || event.target === notifPanel) {
         moviePanel.style.display = 'none';
         showPanel.style.display = 'none'
         pfpChanger.style.display = 'none';
         profilePanel.style.display = 'none';
         notifPanel.style.display = 'none';
       };
+      if (event.target === pfpChanger) {
+        pfpChanger.style.display = 'none';
+      }
     });
 
     // ===== Init =====
@@ -663,4 +690,21 @@
       renderStudioTabs();
       render();
       renderContinue();
+
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          if (user.emailVerified) {
+            // Initialize tabs
+            setActiveTab('All');
+            renderStudioTabs();
+            render();
+            renderContinue();
+          } else {
+            // Redirect or show message
+            window.location.href = "login.html"; // or show a message
+          }
+        }
+      });
+
     })();
+

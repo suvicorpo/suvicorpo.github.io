@@ -14,14 +14,40 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value;
 
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = "stream.html"; // redirect on success
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    if (user.emailVerified) {
+      // Check if Firestore doc exists
+      const userDocRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(userDocRef);
+
+      if (!docSnap.exists()) {
+        await setDoc(userDocRef, {
+          name: user.displayName || "",
+          email: user.email,
+          phone: "",
+          location: "",
+          subscriptions: "Free",
+          status: "Active",
+          renewal: "",
+          profilepic: "images/profiles/profile-blue.png",
+        });
+      }
+
+      window.location.href = "stream.html";
+    } else {
+      document.getElementById("errorMessage").textContent = "Please verify your email before logging in.";
+      await auth.signOut();
+    }
+
   } catch (error) {
     document.getElementById("errorMessage").textContent = error.message;
   }
 });
 
-// Register
+import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
 document.getElementById("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = document.getElementById("regName").value;
@@ -32,22 +58,12 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Add display name to Firebase Auth
     await updateProfile(user, { displayName: name });
+    await sendEmailVerification(user);
 
-    // Create a Firestore document for the user
-    await setDoc(doc(db, "users", user.uid), {
-      name: name,
-      email: email,
-      phone: "",
-      location: "",
-      subscriptions: "Free",
-      status: "Active",
-      renewal: "",
-      profilepic: "images/profiles/profile-blue.png",
-    });
+    document.getElementById("errorMessage").textContent = "Verification email sent. Please check your inbox.";
+    await auth.signOut(); // prevent access until verified
 
-    window.location.href = "stream.html"; // redirect to stream
   } catch (error) {
     document.getElementById("errorMessage").textContent = error.message;
   }

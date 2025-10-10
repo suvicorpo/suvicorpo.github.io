@@ -484,7 +484,7 @@
       width: 128px;
     }
 
-    .changePfp {
+    .changePfp, .pfpOption {
       background-color: #89898900;
       border-color: #00000000;
       color:#fff;
@@ -500,8 +500,25 @@
       border-radius: 2px;
       overflow: hidden;
     }
+    
     .progress {
       height: 100%;
       background: #00b4ff;
       transition: width 0.3s;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      line-height: 1;
+      z-index: 2;
     }
