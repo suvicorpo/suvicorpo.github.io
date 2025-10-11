@@ -314,6 +314,14 @@
       height: 400px; /* Adjust the height as needed */
     }
 
+    .extraLargeBuffer {
+      height: 600px;
+    }
+
+    .mediumLargegBuffer {
+      height: 250px;
+    }
+
     .navbtn{
       background:transparent;
       border:0px solid #2a3146;
