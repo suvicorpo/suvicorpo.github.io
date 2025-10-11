@@ -1,6 +1,6 @@
     // ===== Data + Persistence =====
     const LS_KEY_LIBRARY = 'suvi_plus_library_v2';
-    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching,  } from './firebase-profile.js';
+    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching, updateWatchList, fetchWatchlist } from './firebase-profile.js';
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
     import { firebaseConfig } from "./firebase-conf.js";
@@ -91,7 +91,7 @@
       { id:'studio-othernet', title:'OtherNet Studios', show:'studio', poster:'images/Studios/OtherNet.png', src:'', year:2020, desc:'Creators of "The Battle" and "The Bomb" series.', se:'', vertposter:'images/Studios/OtherNet-vert.png', studio:'OtherNet Studios' },     
 
       // Movies
-      { id:'s42', title:'The Battle of Paladin Strait', show:'Movies', poster:'images/Posters/TBOPS.png', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'The epic final battle of the Dema storyline from TwentyOnePilots. Three music videos (Paladin Strait, The Contract, City Walls) turned into a single movie.', se:'19m 11s', vertposter:'images/Posters/PaladinVert.png', studio:'OtherNet Studios', rt:'19m 11s' },
+      // { id:'s42', title:'The Battle of Paladin Strait', show:'Movies', poster:'images/Posters/TBOPS.png', src:'videos/Movies/BattleofPaladinStrait.mp4', year:2025, desc:'The epic final battle of the Dema storyline from TwentyOnePilots. Three music videos (Paladin Strait, The Contract, City Walls) turned into a single movie.', se:'19m 11s', vertposter:'images/Posters/PaladinVert.png', studio:'OtherNet Studios', rt:'19m 11s' },
   ];
 
     const state = {
@@ -122,9 +122,11 @@
     const rowSkirmishStudies = document.getElementById('rowSkirmishStudies');
     const emptySkirmishStudies = document.getElementById('emptySkirmishStudies');
     const emptyMovies = document.getElementById('emptyMovies');
-    const rowMovies = document.getElementById('rowMovies')
-    const rowContinue = document.getElementById('rowContinue')
-    const emptyContinue = document.getElementById('emptyContinue')
+    const rowMovies = document.getElementById('rowMovies');
+    const rowContinue = document.getElementById('rowContinue');
+    const emptyContinue = document.getElementById('emptyContinue');
+    const rowWatchlist = document.getElementById('rowWatchlist');
+    const emptyWatchlist = document.getElementById('emptyWatchlist');
 
     const heroBg = document.getElementById('heroBg');
     const heroPoster = document.getElementById('heroPoster');
@@ -318,6 +320,7 @@
         const btn = el.querySelector('.remove-btn');
         if (btn) {
           deleteContinueItem(btn, item)
+          deleteWatchlistItem(btn, item)
         }
       }
 
@@ -336,6 +339,24 @@
           await deleteDoc(ref);
           console.log('Removed:', item.title);
           await renderContinue();
+        } catch (err) {
+          console.error('Failed to remove item:', err);
+        }
+      })
+    }
+
+    async function deleteWatchlistItem(btn, item) {
+      const usrData = await fetchUserData();
+      
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        try {
+          const user = usrData.uid;
+          if (!user) return;
+          const ref = doc(db, "users", user.uid, "watchList", String(item.id));
+          await deleteDoc(ref);
+          console.log('Removed:', item.title);
+          await renderWatchlist();
         } catch (err) {
           console.error('Failed to remove item:', err);
         }
@@ -418,6 +439,11 @@
     export async function renderContinue() {
       const list = await fetchContinueWatching();
       renderRow(rowContinue, emptyContinue, list, { showRemove: true });
+    }
+
+    export async function renderWatchlist() {
+      const list = await fetchWatchlist();
+      renderRow(rowWatchlist, emptyWatchlist, list, { showRemove: true });
     }
 
     function render(){
@@ -570,13 +596,44 @@
     const showInfo = document.getElementById('show-info');
     const showTitle = document.getElementById('show-title');
     const seriesOther = document.getElementById('series-text');
+    const addToWatchlist = document.getElementById('addToWatchlistBtn');
 
     // === Profile Picture Changer ===
     const pfpChanger = document.getElementById('pfpChangerPanel');
     const pfpChangeBtn = document.getElementById('changePfp');
     const pfpImg = document.querySelector('.profile-img'); // main profile image
     const pfpOptions = document.querySelectorAll('.pfpOption img');
-    const profileNavImg = document.querySelector('.profile-icon')
+    const profileNavImg = document.querySelector('.profile-icon');
+
+    const tosPanel = document.getElementById('tos-panel');
+    const privacyPanel = document.getElementById('privacy-panel');
+    const dmcaPanel = document.getElementById('dmca-panel');
+    const refundPanel = document.getElementById('refund-panel');
+
+    const tosBtn = document.getElementById('tosBtn');
+    const privacyBtn = document.getElementById('privBtn');
+    const dmcaBtn = document.getElementById('dmcaBtn');
+    const refundbtn = document.getElementById('refundBtn');
+
+    tosBtn.addEventListener('click', () => {
+      tosPanel.style.display = 'flex';
+      profilePanel.style.display = 'none';
+    });
+
+    privacyBtn.addEventListener('click', () => {
+      privacyPanel.style.display = 'flex';
+      profilePanel.style.display = 'none';
+    });
+
+    dmcaBtn.addEventListener('click', () => {
+      dmcaPanel.style.display = 'flex';
+      profilePanel.style.display = 'none';
+    });
+
+    refundbtn.addEventListener('click', () => {
+      refundPanel.style.display = 'flex';
+      profilePanel.style.display = 'none';
+    });
 
     // Notifications Panel
     openNotifBtn.addEventListener('click', () => {
@@ -585,10 +642,6 @@
 
     closeNotifBtn.addEventListener('click', () => {
       notifPanel.style.display = 'none';
-    });
-
-    openProfileBtn.addEventListener('hover', () => {
-      accountDropdown.style.display = 'flex';
     });
 
     // Profile Panel
@@ -653,15 +706,26 @@
       showPlayBtn.addEventListener('click', ()=> openPlayer(item));     
       showEpisodes(item.show);
       seriesOther.innerHTML = `Other episodes of ${item.show}` || "this series";
+
+      addToWatchlist.addEventListener('click', () => {
+        addItemToWatchlist(item);
+      });
+    };
+
+    async function addItemToWatchlist(item) {
+      await updateWatchList(item);
     };
 
     window.addEventListener('click', (event) => {
-      if (event.target === moviePanel || event.target === showPanel || event.target === profilePanel || event.target === notifPanel) {
+      if (event.target === moviePanel || event.target === showPanel || event.target === profilePanel || event.target === notifPanel || event.target === tosPanel || event.target === refundPanel || event.target === dmcaPanel || event.target === privacyPanel) {
         moviePanel.style.display = 'none';
         showPanel.style.display = 'none'
-        pfpChanger.style.display = 'none';
         profilePanel.style.display = 'none';
         notifPanel.style.display = 'none';
+        tosPanel.style.display = 'none';
+        privacyPanel.style.display = 'none';
+        dmcaPanel.style.display = 'none';
+        refundPanel.style.display = 'none';
       };
       if (event.target === pfpChanger) {
         pfpChanger.style.display = 'none';
@@ -690,5 +754,6 @@
       renderStudioTabs();
       render();
       renderContinue();
+      renderWatchlist();
     })();
 

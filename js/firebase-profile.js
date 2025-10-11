@@ -117,12 +117,47 @@ export async function fetchContinueWatching() {
   });
 }
 
+export async function updateWatchList(item) {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const userRef = doc(db, "users", user.uid, "watchList", item.id);
+  await setDoc(userRef, {
+    id: item.id,
+    title: item.title,
+    show: item.show,
+    poster: item.poster,
+    src: item.src,
+    se: item.se,
+    year: item.year,
+    sub: item.sub
+  });
+}
+
+export async function fetchWatchlist() {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) return resolve([]);
+      try {
+        const cwRef = collection(db, "users", user.uid, "watchList");
+        const q = query(cwRef);
+        const snapshot = await getDocs(q);
+        resolve(snapshot.docs.map(doc => doc.data()));
+      } catch (err) {
+        console.error('Error fetching watchList:', err);
+        reject(err);
+      }
+    });
+  });
+}
+
 // Listen for auth state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
     populateProfile(user.uid);
     fetchUserData(user.uid);
     fetchContinueWatching(user.uid); 
+    fetchWatchlist(user.uid);
   } else {
     window.location.href = "login.html"; // redirect if not logged in
   }

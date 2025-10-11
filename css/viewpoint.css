@@ -277,6 +277,36 @@
       backdrop-filter:saturate(1.2) blur(6px);
     }
 
+    .tos-panel, .privacy-panel, .dmca-panel, .refund-panel {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stays in place */
+      z-index: 1; /* Sits on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+      justify-content: center; /* Center content horizontally */
+      align-items: center; /* Center content vertically */
+    }
+
+    .privacy-content, .tos-content, .dmca-content, .refund-content {
+      background-color: #0f1117aa;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #1f2430;
+      width: 90%;
+      max-width: 800px;
+      height: auto;
+      max-height: 80vh;
+      overflow-y: auto; /* 👈 Enables vertical scrolling inside the content box */
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      border-radius: 5px;
+      text-align: center;
+      backdrop-filter: saturate(1.2) blur(6px);
+    }
+
     .logoutBtn {
       background: var(--accent);
       color: #0c0f16;
@@ -322,7 +352,7 @@
       height: 250px;
     }
 
-    .navbtn{
+    .navbtn {
       background:transparent;
       border:0px solid #2a3146;
       color:#e7e8ea;
@@ -330,8 +360,22 @@
       font-weight: 600;
       transition:.2s transform,.2s;
     }
-    .navbtn:hover{
+    .navbtn:hover {
       color: #fff;
+      size: 20px;
+      transform:translateY(-2px); 
+    }
+
+    .minorBtn {
+      background:transparent;
+      border:0px solid #2a3146;
+      color:#5b5b5b;
+      font-weight: 600;
+      transition:.2s transform,.2s;
+    }
+
+    .minorBtn:hover {
+      color: #c5c5c5;
       size: 20px;
       transform:translateY(-2px); 
     }
@@ -529,4 +573,14 @@
       height: 24px;
       line-height: 1;
       z-index: 2;
+    }
+
+    .tinyBuffer {
+      height: 25px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center; /* centers horizontally */
+      gap: 10px; /* optional spacing between buttons */
     }
