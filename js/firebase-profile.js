@@ -117,15 +117,12 @@ export async function fetchContinueWatching() {
   });
 }
 
-export async function deleteContinue(item) {
-}
-
 // Listen for auth state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
     populateProfile(user.uid);
     fetchUserData(user.uid);
-    fetchContinueWatching(user.uid);
+    fetchContinueWatching(user.uid); 
   } else {
     window.location.href = "login.html"; // redirect if not logged in
   }

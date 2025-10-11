@@ -1,6 +1,6 @@
     // ===== Data + Persistence =====
     const LS_KEY_LIBRARY = 'suvi_plus_library_v2';
-    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching, deleteContinue } from './firebase-profile.js';
+    import { fetchUserData, updateUserProfilePic, updateContinueWatching, fetchContinueWatching,  } from './firebase-profile.js';
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getFirestore, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
     import { firebaseConfig } from "./firebase-conf.js";
@@ -690,21 +690,5 @@
       renderStudioTabs();
       render();
       renderContinue();
-
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          if (user.emailVerified) {
-            // Initialize tabs
-            setActiveTab('All');
-            renderStudioTabs();
-            render();
-            renderContinue();
-          } else {
-            // Redirect or show message
-            window.location.href = "login.html"; // or show a message
-          }
-        }
-      });
-
     })();
 
