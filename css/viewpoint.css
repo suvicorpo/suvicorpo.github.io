@@ -584,3 +584,10 @@
       justify-content: center; /* centers horizontally */
       gap: 10px; /* optional spacing between buttons */
     }
+
+    .showRowinfo p {
+      margin-top: -25px;
+      margin-bottom: 25px;
+      font-weight: 800;
+      color:#818181;
+    }
