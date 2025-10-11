@@ -59,12 +59,28 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     const user = userCredential.user;
 
     await updateProfile(user, { displayName: name });
+
+    // 🔥 Create Firestore user document immediately
+    const userDocRef = doc(db, "users", user.uid);
+    await setDoc(userDocRef, {
+      name: name,
+      email: email,
+      phone: "",
+      location: "",
+      subscriptions: "Free",
+      status: "Pending", // not verified yet
+      renewal: "",
+      profilepic: "images/profiles/profile-blue.png",
+    });
+
+    // 📧 Send verification email
     await sendEmailVerification(user);
 
     document.getElementById("errorMessage").textContent = "Verification email sent. Please check your inbox.";
     await auth.signOut(); // prevent access until verified
 
   } catch (error) {
+    console.error("Registration error:", error);
     document.getElementById("errorMessage").textContent = error.message;
   }
 });
