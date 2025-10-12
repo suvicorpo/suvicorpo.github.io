@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=stream.html" />
-  </head>
-  <body>
-    <p>If you're not redirected, <a href="stream.html">click here</a>.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirecting...</title>
+  <script>
+    // Basic TV detection logic
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isTV = userAgent.includes("smart-tv") ||
+                 userAgent.includes("hbbtv") ||
+                 userAgent.includes("netcast") ||
+                 userAgent.includes("tizen") ||
+                 userAgent.includes("webos") ||
+                 userAgent.includes("appletv") ||
+                 userAgent.includes("roku") ||
+                 userAgent.includes("androidtv") ||
+                 userAgent.includes("googletv") ||
+                 userAgent.includes("firetv");
+
+    // Redirect based on device type
+    const target = isTV ? "tv.html" : "stream.html";
+    window.location.replace(target);
+  </script>
+</head>
+<body>
+  <p>If you're not redirected, <a href="stream.html">click here</a>.</p>
+</body>
 </html>

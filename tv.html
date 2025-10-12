@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ViewPoint TV</title>
+  <link rel="stylesheet" href="css/tv.css" />
+</head>
+<body>
+    <aside class="tv-sidebar">
+        <button id="tvProfileBtn" class="tv-profile-btn" title="Profile">
+            <img src="images/profiles/profile-blue.png" alt="Profile Icon"/>
+        </button>
+    </aside>
+
+    <main id="tv-app">
+        <section class="tv-hero" id="tvHero">
+        <img id="tvHeroPoster" alt="Featured Poster" />
+        <div class="tv-hero-text">
+            <h1 id="tvHeroTitle">Featured</h1>
+            <p id="tvHeroMeta">—</p>
+            <button id="tvHeroPlay" class="tv-btn">Play</button>
+        </div>
+        </section>
+
+        <section id="tvRowsContainer"></section>
+
+        <section class="tv-row">
+            <h2 class="tv-row-title">Continue Watching</h2>
+            <div class="tv-scroller" id="tvContinueRow"></div>
+        </section>
+
+        <section class="tv-row">
+            <h2 class="tv-row-title">Your Watchlist</h2>
+            <div class="tv-scroller" id="tvWatchlistRow"></div>
+        </section>
+    </main>
+
+    <div id="tvPlayer" class="tv-player">
+        <video id="tvVideo" controls></video>
+        <button id="tvClosePlayer" class="tv-btn">Close</button>
+    </div>
+
+    <div id="tvProfileModal" class="tv-modal" style="display: none;">
+        <div class="tv-modal-content">
+            <h2>Your Profile</h2>
+            <img class="tv-profile-img" src="images/profiles/profile-blue.png" alt="Profile Picture" />
+            <p class="tv-profile-name">Username</p>
+            <p class="tv-profile-sub">Subscription: Premium</p>
+            <button id="tvCloseProfile" class="tv-btn ghost">Close</button>
+        </div>
+    </div>
+
+    <div id="tvShowPopup" class="tv-modal">
+        <div class="tv-modal-content">
+            <h2 id="tvShowTitle">Show Title</h2>
+            <p id="tvShowMeta">Season info</p>
+            <button id="tvShowPlayBtn" class="tv-btn">Play</button>
+            <button id="tvShowCloseBtn" class="tv-btn ghost">Close</button>
+        </div>
+    </div>
+
+    <footer class="tv-footer">
+        <p>© 2025 <a href="https://suvicorp.neocities.org/us.html" class="footerLink">Doubt Pty Ltd</a>. Powered by <a href="https://suvicorp.neocities.org/wex" class="footerLink">WEX</a>.</p>
+    </footer>
+
+  <script type="module" src="js/tv.js"></script>
+</body>
+</html>
