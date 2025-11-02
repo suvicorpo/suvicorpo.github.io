@@ -4,13 +4,13 @@
     
     /* ===== Variables / Theme ===== */
     :root{
-      --bg:#0f1117;
-      --panel:#141823;
-      --panel-2:#1c2130;
+      --bg:#0f0f0f;
+      --panel:#1a1a1a;
+      --panel-2:#303030;
       --text:#e8e8e8;
       --muted:#9aa1b2;
-      --accent:#6a5cff;
-      --accent-2:#5048e5;
+      --accent:#d83030;
+      --accent-2:#e54848;
       --card:#0f121b;
       --radius:18px;
       --shadow:0 18px 50px rgba(0,0,0,.6);
@@ -33,21 +33,21 @@
     .navbar{
       position:sticky; top:0; z-index:50;
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 28px; background:linear-gradient(180deg,#0f1119,rgba(15,17,25,.65));
-      border-bottom:1px solid #1f2433; backdrop-filter:saturate(1.2) blur(6px);
+      padding:14px 28px; background:linear-gradient(180deg,#121212,rgba(18, 18, 18, 0.65));
+      border-bottom:1px solid #2d2d2d; backdrop-filter:saturate(1.2) blur(6px);
     }
     .nav-left{display:flex;align-items:center;gap:18px}
-    .logo img{height:42px;width:auto}
+    .logo img{height:64px;width:auto}
     .nav-links{display:flex;gap:18px;list-style:none;margin:0;padding:0}
     .nav-links a{padding:8px 12px;border-radius:12px;color:#cfd3df}
-    .nav-links a:hover{background:#191f2e;color:#fff}
+    .nav-links a:hover{background:#2b2b2b;color:#fff}
 
     .nav-right{display:flex;align-items:center;gap:12px}
     .nav-center{align-items:center; flex:1; display:flex; justify-content:center}
 
     .search{
       display:flex; align-items:center; gap:8px;
-      background:#151a28; border:1px solid #22283a; padding:10px 12px; border-radius:12px; width:320px;
+      background:#151a28; border:1px solid #424242; padding:10px 12px; border-radius:12px; width:320px;
     }
     .search input{
       background:transparent; border:none; outline:none; color:var(--text); width:100%;
@@ -56,8 +56,8 @@
       background:var(--accent); color:#0c0f16; border:none; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer;
       transition:.2s transform,.2s box-shadow,.2s background;
     }
-    .btn:hover{transform:translateY(-1px); background:var(--accent-2); box-shadow:0 10px 24px rgba(80,72,229,.35)}
-    .btn.ghost{background:transparent;border:1px solid #2a3146;color:#d7dbeb}
+    .btn:hover{transform:translateY(-1px); background:var(--accent-2); box-shadow:0 10px 24px rgba(229, 72, 72, 0.35)}
+    .btn.ghost{background:transparent;border:1px solid #3d3d3d;color:#d7dbeb}
     .btn.ghost:hover{background:#191f2e}
 
     /* ===== Page Structure ===== */
@@ -127,18 +127,24 @@
       filter: none !important; /* ensure original logo is always in color */
       display: inline-block;
     }
-    .scroller{
-      display:grid; grid-auto-flow:column; grid-auto-columns: clamp(170px,18vw,240px);
-      gap:16px; overflow-x:auto; overscroll-behavior-inline:contain; padding-bottom:8px;
-      scrollbar-width:thin; scrollbar-color:#2a3046 transparent;
+    .scroller {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: clamp(170px, 18vw, 240px);
+        gap: 16px;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        padding: 16px 6px; /* ↑ add vertical padding */
+        scrollbar-width: thin;
+        scrollbar-color: #474747 transparent;
     }
     .scroller::-webkit-scrollbar{height:10px}
-    .scroller::-webkit-scrollbar-thumb{background:#2a3046;border-radius:999px}
+    .scroller::-webkit-scrollbar-thumb{background:#464646;border-radius:999px}
     .card{
-      background:linear-gradient(180deg,#121827,#0e1420); border:1px solid #1e2436; border-radius:16px; overflow:hidden; position:relative; cursor:pointer;
+      background:linear-gradient(180deg,#121212,#141414); border:1px solid #363636; border-radius:16px; overflow:hidden; position:relative; cursor:pointer;
       transition:.18s transform,.18s box-shadow,.18s border-color;
     }
-    .card:hover{transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.55); border-color:#2b3250}
+    .card:hover{transform: scale(1.05); border-color:#4f4f4f; border-width: 3px;}
     .thumb{aspect-ratio:16/9; background:#0d1220; display:block; overflow:hidden}
     .thumb img{width:100%;height:100%;object-fit:cover}
     .movie-thumb{aspect-ratio:9/16; background:#0d1220; display:block; overflow:hidden; position:relative}
@@ -146,10 +152,10 @@
     .card-body{padding:10px 12px 12px}
     .title{font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
     .meta{color:var(--muted); font-size:.9rem}
-    .chip{position:absolute; top:10px; left:10px; background:rgba(13,17,26,.65); border:1px solid #2b3250; backdrop-filter: blur(4px); color:#cfd3df; padding:5px 8px; border-radius:999px; font-weight:700; font-size:.75rem}
+    .chip{position:absolute; top:10px; left:10px; background:rgba(13,17,26,.65); border:1px solid #4b4b4b; backdrop-filter: blur(4px); color:#cfd3df; padding:5px 8px; border-radius:999px; font-weight:700; font-size:.75rem}
 
     .wish{position:absolute; top:10px; right:10px; display:grid; place-items:center; width:34px; height:34px; border-radius:50%;
-      background:rgba(13,17,26,.55); border:1px solid #2b3250}
+      background:rgba(13, 13, 13, 0.55); border:1px solid #502b2b}
     .wish.active{background:var(--accent); border-color:var(--accent)}
 
     /* ===== Add Item Dialog (server-path only) ===== */
@@ -160,7 +166,7 @@
     .dialog .grid{display:grid; gap:14px; grid-template-columns:1fr}
     .dialog label{font-weight:700; color:#cfd3df}
     .dialog input,.dialog select,.dialog textarea{
-      width:100%; padding:12px 12px; background:#121829; color:#eaeffb; border:1px solid #243051; border-radius:12px; outline:none;
+      width:100%; padding:12px 12px; background:#291212; color:#eaeffb; border:1px solid #512424; border-radius:12px; outline:none;
     }
     .dialog textarea{min-height:120px; resize:vertical}
     .dialog footer{display:flex; gap:10px; justify-content:flex-end; margin-top:10px}
@@ -171,8 +177,8 @@
     }
 
     /* ===== Player Modal ===== */
-    .player{position:fixed; inset:0; background:rgba(1,3,8,.85); display:none; align-items:center; justify-content:center; z-index:80}
-    .player-inner{width:min(1200px,94vw); background:#0b0f18; border:1px solid #20263d; border-radius:18px; overflow:hidden; box-shadow:var(--shadow)}
+    .player{position:fixed; inset:0; background:rgba(4, 4, 4, 0.85); display:none; align-items:center; justify-content:center; z-index:80}
+    .player-inner{width:min(1200px,94vw); background:#0f0f0f; border:1px solid #373737; border-radius:18px; overflow:hidden; box-shadow:var(--shadow)}
     .player video{width:100%; height:auto; display:block; background:#000}
     .player-info{padding:14px 16px; display:flex; flex-direction:column; gap:6px}
     .player-title{font-weight:800; font-size:1.1rem}
@@ -263,10 +269,10 @@
     }
 
     .notifications-content, .profile-content, .pfpContent {
-      background-color: #0f1117aa; /* Panel background color */
+      background-color: #0f0f0faa; /* Panel background color */
       margin: auto; /* Center the box */
       padding: 20px;
-      border: 1px solid #1f2430;
+      border: 1px solid #343434;
       width: 90%; /* Could be adjusted */
       max-width: 800px; /* Max width for better responsiveness */
       height: auto; /* Adjust height as needed */
@@ -292,10 +298,10 @@
     }
 
     .privacy-content, .tos-content, .dmca-content, .refund-content {
-      background-color: #0f1117aa;
+      background-color: #0f0f0faa;
       margin: auto;
       padding: 20px;
-      border: 1px solid #1f2430;
+      border: 1px solid #343434;
       width: 90%;
       max-width: 800px;
       height: auto;
@@ -324,9 +330,9 @@
       padding: 12px 12px;
       margin: 8px 0;
       box-sizing: border-box;
-      background: #121829;
+      background: #222222;
       color: #eaeffb;
-      border: 1px solid #243051;
+      border: 1px solid #4a4a4a;
       border-radius: 12px;
       outline: none;
       font-size: larger;
@@ -354,7 +360,7 @@
 
     .navbtn {
       background:transparent;
-      border:0px solid #2a3146;
+      border:0px solid #3e3e3e;
       color:#e7e8ea;
       margin-right: 60px;
       font-weight: 600;
@@ -368,7 +374,7 @@
 
     .minorBtn {
       background:transparent;
-      border:0px solid #2a3146;
+      border:0px solid #373737;
       color:#5b5b5b;
       font-weight: 600;
       transition:.2s transform,.2s;
@@ -408,9 +414,9 @@
       width: 90%; /* Could be adjusted */
       max-width: 800px; /* Max width for better responsiveness */
       height: auto; /* Adjust height as needed */
-      border: 1px solid #1f2430;
+      border: 1px solid #1f1f1f;
       border-radius: 5px;
-      background-color: #0f1117; /* Panel background color */
+      background-color: #090909; /* Panel background color */
       overflow-y: auto; 
       max-height: 80vh; /* keep within screen height */
     }
@@ -429,7 +435,7 @@
       left: 0;
       width: 100%;
       height: 40%; /* adjust how tall the fade is */
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #0f1117 100%);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #0c0c0c 100%);
       pointer-events: none; /* make sure it doesn't block clicks */
     }
 
@@ -472,7 +478,7 @@
     }
 
     .powered {
-      color: #363e53;
+      color: #3c3c3c;
       justify-content: left;
       display: inline;
       margin-left: 12px;
@@ -480,7 +486,7 @@
 
     .powered .footerLink {
       text-decoration: underline;
-      text-decoration-color: #363e53;
+      text-decoration-color: #3c3c3c;
     }
 
     .episode-list {
@@ -495,7 +501,7 @@
     }
 
     .episode-card {
-      background: #141a28;
+      background: #202020;
       border-radius: 8px;
       overflow: hidden;
       cursor: pointer;
@@ -555,7 +561,7 @@
     
     .progress {
       height: 100%;
-      background: #00b4ff;
+      background: #cc1212;
       transition: width 0.3s;
     }
 
@@ -593,7 +599,7 @@
     }
 
     .notification {
-      border: 1px solid #374055;
+      border: 1px solid #4f4f4f;
       border-radius: 16px;
       background: transparent;
       padding: 10px;
