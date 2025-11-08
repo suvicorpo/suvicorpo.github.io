@@ -2,68 +2,339 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ViewPoint TV</title>
   <link rel="stylesheet" href="css/tv.css" />
 </head>
 <body>
-    <aside class="tv-sidebar">
-        <button id="tvProfileBtn" class="tv-profile-btn" title="Profile">
-            <img src="images/profiles/profile-blue.png" alt="Profile Icon"/>
-        </button>
-    </aside>
 
-    <main id="tv-app">
-        <section class="tv-hero" id="tvHero">
-            <img id="tvHeroPoster" alt="Featured Poster" />
-            <div class="tv-hero-text">
-                <h1 id="tvHeroTitle">Featured</h1>
-                <p id="tvHeroMeta">—</p>
-                <button id="tvHeroPlay" class="tv-btn">Play</button>
+  <!-- Sidebar Navigation -->
+  <aside class="tv-sidebar">
+    <img src="images/viewpoint_logo.png" alt="ViewPoint Logo" class="tv-logo" />
+    <nav class="tv-nav">
+        <button class="tv-navbtn" id="homebtn"><img class="navimg" src="images/icons/home.png"><a href="stream.html">Home</a></button>
+        <button class="tv-navbtn" id="moviesbtn"><img class="navimg" src="images/icons/movies.png"><a href="movies.html">Movies</a></button>
+        <button class="tv-navbtn" id="showsbtn"><img class="navimg" src="images/icons/series.png"><a href="shows.html">Shows</a></button>
+        <button id="notifbtn" class="tv-navbtn" title="notifications"><img class="notif-icon" src="images/icons/notif.png" alt="Notifications"><a>Notifications</a></button>
+        <button id="profilebtn" class="tv-navbtn" title="profile"><img class="profile-icon" src="images/profiles/profile-blue.png"><a class="profile-text" id="profile-text">Profile</a></button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="tv-main">
+
+    <div class="tos-panel" id="tos-panel" style="display: none;">
+      <div class="tos-content">
+        <h1>Terms of Service</h1>
+        <p><strong>Effective Date:</strong> October 14, 2025<br>
+          <strong>Last Updated:</strong> October 11, 2025</p>
+
+        <h2>1. Eligibility</h2>
+        <p>By accessing or using ViewPoint, you represent and warrant that you meet one of the following conditions:</p>
+        <ul>
+          <li>(a) You are at least eighteen (18) years of age;</li>
+          <li>(b) You are under eighteen (18) years of age and have obtained verifiable consent from a parent or legal guardian;</li>
+          <li>(c) You are using an account created and managed by a parent or legal guardian with their express permission.</li>
+        </ul>
+
+        <h2>2. Accounts and Access</h2>
+        <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+
+        <h2>3. Subscription Tiers</h2>
+        <p>ViewPoint offers Free and Premium subscriptions. Premium accounts unlock exclusive content, multi-profile support, and an ad-free experience.</p>
+
+        <h2>4. Content Usage</h2>
+        <p>All content is owned or licensed by Doubt Pty Ltd. You may stream content for personal, non-commercial use only.</p>
+
+        <h2>5. User Data and Privacy</h2>
+        <p>We collect profile data and watch history to personalize your experience. ViewPoint does not support user uploads.</p>
+
+        <h2>6. Acceptable Use</h2>
+        <ul>
+          <li>Do not reverse-engineer or tamper with the platform.</li>
+          <li>Do not scrape or download content using automated tools.</li>
+          <li>Do not impersonate other users.</li>
+        </ul>
+
+        <h2>7. Modifications to Terms</h2>
+        <p>We may update these Terms at any time. Material changes will be communicated via email to your account’s associated address. Continued use constitutes acceptance.</p>
+
+        <h2>8. Termination</h2>
+        <p>We may suspend or terminate access for violations of these Terms.</p>
+
+        <h2>9. Governing Law</h2>
+        <p>These Terms are governed by the laws of Queensland, Australia.</p>
+
+        <h2>10. Contact</h2>
+        <p>For general inquiries or support, please contact us at <a href="mailto:contact@doubt.cx">contact@doubt.cx</a>.</p>
+      </div>
+    </div>
+
+    <div class="privacy-panel" id="privacy-panel" style="display: none;">
+      <div class="privacy-content">
+        <h1>Privacy Policy</h1>
+        <p><strong>Effective Date:</strong> October 14, 2025<br>
+          <strong>Last Updated:</strong> October 11, 2025</p>
+
+        <h2>1. Information We Collect</h2>
+        <ul>
+          <li>Account details: name, email, profile picture, location</li>
+          <li>Subscription status and preferences</li>
+          <li>Watch history and playback progress</li>
+          <li>Authentication data via Firebase</li>
+        </ul>
+
+        <h2>2. How We Use Your Information</h2>
+        <p>To personalize your experience, manage subscriptions, and improve platform functionality.</p>
+
+        <h2>3. Data Sharing</h2>
+        <p>We do not sell your data. We only share with trusted providers or as required by law.</p>
+
+        <h2>4. Data Security</h2>
+        <p>We use reasonable measures to protect your data, but no system is 100% secure.</p>
+
+        <h2>5. Your Rights</h2>
+        <p>You may request access, correction, or deletion of your data by contacting us at <a href="mailto:contact@doubt.cx">contact@doubt.cx</a>.</p>
+
+        <h2>6. Changes to This Policy</h2>
+        <p>We may update this policy. Material changes will be emailed to your account’s address.</p>
+
+        <h2>7. External Services</h2>
+        <p>ViewPoint relies on third-party services provided by Google, including Firebase, for authentication, data storage, and analytics. These services are governed by Google’s own privacy policies. We encourage users to review <a href="https://policies.google.com/privacy" target="_blank">Google’s Privacy Policy</a> for more information on how your data may be handled by these providers.</p>
+      </div>
+    </div>
+
+    <div class="dmca-panel" id="dmca-panel" style="display: none;">
+      <div class="dmca-content">
+        <h1>DMCA Policy</h1>
+        <p><strong>Effective Date:</strong> October 14, 2025<br>
+          <strong>Last Updated:</strong> October 11, 2025</p>
+
+        <p>If you believe content on ViewPoint infringes your copyright, submit a DMCA notice including:</p>
+        <ul>
+          <li>Your full legal name and contact information</li>
+          <li>Identification of the copyrighted work</li>
+          <li>Identification of the infringing material and its location</li>
+          <li>A good faith statement that the use is unauthorized</li>
+          <li>A statement under penalty of perjury that the information is accurate</li>
+          <li>Your physical or electronic signature</li>
+        </ul>
+
+        <p>Send notices to: <a href="mailto:legal@doubt.cx">legal@doubt.cx</a><br>
+          <em>Subject Line:</em> DMCA Takedown Request – ViewPoint</p>
+
+        <p>We will respond promptly to valid requests and may remove or disable access to infringing content.</p>
+      </div>
+    </div>
+
+    <div class="refund-panel" id="refund-panel" style="display: none;">
+      <div class="refund-content">
+        <h1>Refund Policy</h1>
+        <p><strong>Effective Date:</strong> October 14, 2025<br>
+          <strong>Last Updated:</strong> October 11, 2025</p>
+
+        <p>All Premium subscriptions are non-refundable. By purchasing Premium, you agree that:</p>
+        <ul>
+          <li>Access is granted immediately upon payment.</li>
+          <li>No refunds will be issued for partial use or dissatisfaction.</li>
+          <li>You may cancel anytime to prevent future charges.</li>
+        </ul>
+
+        <p>For billing issues or technical support, contact us at <a href="mailto:contact@doubt.cx">contact@doubt.cx</a>.</p>
+      </div>
+    </div>
+
+    <div id="notificationsPanel" class="notifications-panel" style="display:none;">
+        <div class="notifications-content">
+          <div class="notifications-header">
+            <h3>Notifications</h3>
+          </div>
+          <div class="notification">
+            <h3>1.0 RELEASE</h3>
+            <p>ViewPoint has officially reached it's 1.0 <br>after weeks of hard work the WEX team has created <br>ViewPoint, the worlds newest streaming service and <br>showcase of the WEX framework developed by Doubt.</p>
+          </div>
+          <div class="notification">
+            <h3>SUPPORT DISCORD!</h3>
+            <p>We have officially released our support channels for <br>ViewPoint & WEX in the <a href="https://discord.gg/8KmFXk5ECw">Doubt HQ</a> discord server!</p>
+          </div>
+          <button id="closeNotifBtn" class="btn ghost" title="Close notifications panel">Close</button>
+        </div>
+      </div>
+
+    <div id="profilePanel" class="profile-panel" style="display:none;">
+        <div class="profile-content">
+          <h1 class="profile-header" id="profile-name"></h1>
+            <div class="profile-picture">
+                <img class="profile-img" src="images/profiles/profile-blue.png" alt="Profile Picture">
+                <button id="changePfp" class="changePfp"><img class="edit-icon" src="images/icons/edit-button.png" alt="Edit Icon">Change Profile Picture</button>
             </div>
-        </section>
-
-        <section id="tvRowsContainer"></section>
-
-        <section class="tv-row">
-            <h2 class="tv-row-title">Continue Watching</h2>
-            <div class="tv-scroller" id="tvContinueRow"></div>
-        </section>
-
-        <section class="tv-row">
-            <h2 class="tv-row-title">Your Watchlist</h2>
-            <div class="tv-scroller" id="tvWatchlistRow"></div>
-        </section>
-    </main>
-
-    <div id="tvPlayer" class="tv-player">
-        <video id="tvVideo" controls></video>
-        <button id="tvClosePlayer" class="tv-btn">Close</button>
-    </div>
-
-    <div id="tvProfileModal" class="tv-modal" style="display: none;">
-        <div class="tv-modal-content">
-            <h2>Your Profile</h2>
-            <img class="tv-profile-img" src="images/profiles/profile-blue.png" alt="Profile Picture" />
-            <p class="tv-profile-name">Username</p>
-            <p class="tv-profile-sub">Subscription: Premium</p>
-            <button id="tvCloseProfile" class="tv-btn ghost">Close</button>
+            <div class="profile-details">
+                <p></p>
+                <div class="Name"></div>
+                <h3>Contact Information</h3>
+                <div class="Email"></div>
+                <div class="Phone"></div>
+                <div class="Location"></div>
+                <h3>Subscriptions</h3>
+                <div class="Subscriptions"></div>
+                <div class="status"></div>
+                <div class="renewal"></div>
+                <p></p>
+            </div>
+            <button id="logoutBtn" class="logoutBtn">Logout</button>
+            <button id="closeProfileBtn" class="btn ghost" title="Close profile panel">Close</button>
+            <div class="tinyBuffer"></div>
+            <div class="button-container">
+              <button id="tosBtn" class="minorBtn">Terms of Service</button>
+              <button id="dmcaBtn" class="minorBtn">DMCA Policy</button>
+              <button id="privBtn" class="minorBtn">Privacy Policy</button>
+              <button id="refundBtn" class="minorBtn">Refund Policy</button>
+            </div>
         </div>
-    </div>
+      </div>
 
-    <div id="tvShowPopup" class="tv-modal">
-        <div class="tv-modal-content">
-            <h2 id="tvShowTitle">Show Title</h2>
-            <p id="tvShowMeta">Season info</p>
-            <button id="tvShowPlayBtn" class="tv-btn">Play</button>
-            <button id="tvShowCloseBtn" class="tv-btn ghost">Close</button>
+      <div class="pfpChangerPanel" id="pfpChangerPanel" style="display: none;">
+        <div class="pfpContent" id="pfpContent">
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-red.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-orange.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-yellow.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-green.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-blue.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/profile-pink.png"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land1.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land2.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land3.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land4.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land5.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land6.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land7.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/land8.jpg"></button>
+          <button class="pfpOption" id="pfpChangerBtn"><img class="profileItem" src="images/profiles/rainbow.jpg"></button>
         </div>
+      </div>
+
+    <div id="movie-popup" class="movie-popup" style="display: none;">
+      <div class="movie-content">
+        <div class="movie-banner-wrapper">
+          <img id="movie-banner" class="movie-banner" src="images/placeholder.jpg" alt="poster">
+          <div class="banner-text">
+            <h2 class="movie-title" id="movie-title">chicken</h2>
+            <p class="movie-info" id="movie-info"></p>
+          </div>
+        </div>
+        <div class="movie-header">
+          <button id="movie-playbtn" class="btn ghost">Play</button>
+        </div>  
+        <p id="movie-desc"></p>
+      </div>
     </div>
 
-    <footer class="tv-footer">
-        <p>© 2025 <a href="https://suvicorp.neocities.org/us.html" class="footerLink">Doubt Pty Ltd</a>. Powered by <a href="https://suvicorp.neocities.org/wex" class="footerLink">WEX</a>.</p>
-    </footer>
+    <div id="show-popup" class="show-popup" style="display: none;">
+      <div class="show-content">
+        <div class="show-banner-wrapper">
+          <img id="show-banner" class="show-banner" src="images/placeholder.jpg" alt="poster">
+          <div class="banner-text">
+            <h2 class="show-title" id="show-title">chicken</h2>
+            <p class="show-info" id="show-info"></p>
+          </div>
+        </div>
+        <div class="show-header">
+          <button id="show-playbtn" class="btn ghost">Play</button>
+          <button id="addToWatchlistBtn" class="btn ghost">+</button>
+        </div>  
+        <p id="show-desc"></p>
+        <h2 class="other-text" id="series-text"></h2>
+        <div id="episodeListContainer" class="episode-list"></div>
+      </div>
+    </div>
 
-  <script type="module" src="js/viewpoint.js"></script>
+    <!-- ===== HERO ===== -->
+    <section id="hero" class="hero" aria-label="Featured">
+      <div id="heroBg" class="hero-bg"></div>
+      <div class="hero-grad"></div>
+      <div class="hero-content">
+        <div class="hero-poster"><img id="heroPoster" alt=""></div>
+        <div class="hero-text">
+          <h1 id="heroTitle" class="hero-title">Featured</h1>
+          <div id="heroMeta" class="hero-meta">—</div>
+          <div class="hero-actions">
+            <button id="heroPlay" class="btn">Play</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="studioTabs"></div>
+
+    <!-- The Battle -->
+    <section class="tv-row" aria-labelledby="row-thebattle">
+      <div class="row-header"><h3 id="row-thebattle" class="row-title">The Battle<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div class="showRowinfo"><p>3 Season(s) | 2022 - 2025</p></div>
+      <div id="rowTheBattle" class="scroller" role="list"></div>
+      <div id="emptyTheBattle" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Wafront -->
+    <section class="tv-row" aria-labelledby="row-wafront">
+      <div class="row-header"><h3 id="row-wafront" class="row-title">Wafront<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div class="showRowinfo"><p>2 Season(s) | 2022 - 2024</p></div>
+      <div id="rowWafront" class="scroller" role="list"></div>
+      <div id="emptyWafront" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Continue -->
+    <section class="tv-row" aria-labelledby="row-continue">
+      <div class="row-header"><h3 id="row-continue" class="row-title">Continue Watching</h3></div>
+      <div id="rowContinue" class="scroller" role="list"></div>
+      <div id="emptyContinue" class="empty muted" style="display:none;">Watch something to have items appear here.</div>
+    </section>
+
+    <!-- Pivonian Academy -->
+    <section class="tv-row" aria-labelledby="row-pivonian">
+      <div class="row-header"><h3 id="row-pivonian" class="row-title">Pivonian Academy<a class="original"><img src="images/original.png" alt="Original"></a></h3></div>
+      <div class="showRowinfo"><p>1 Season(s) | 2025</p></div>
+      <div id="rowPivonian" class="scroller" role="list"></div>
+      <div id="emptyPivonian" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- The Bomb -->
+    <section class="tv-row" aria-labelledby="row-thebomb">
+      <div class="row-header"><h3 id="row-thebomb" class="row-title">The Bomb</h3></div>
+      <div class="showRowinfo"><p>1 Season(s) | 2022</p></div>
+      <div id="rowTheBomb" class="scroller" role="list"></div>
+      <div id="emptyTheBomb" class="empty muted" style="display:none;">Series not found!</div>
+    </section>
+
+    <!-- Watchlist -->
+    <section class="tv-row" aria-labelledby="row-continue">
+      <div class="row-header"><h3 id="row-watchlist" class="row-title">Your Watchlist</h3></div>
+      <div id="rowWatchlist" class="scroller" role="list"></div>
+      <div id="emptyWatchlist" class="empty muted" style="display:none;">Watch something to have items appear here.</div>
+    </section>
+
+  </main>
+
+  <!-- ===== Player Modal ===== -->
+  <div id="player" class="player" aria-modal="true" role="dialog" aria-label="Player">
+    <div class="player-inner">
+      <video id="videoEl" controls preload="metadata" playsinline></video>
+      <div class="player-info">
+        <div class="player-title" id="playerTitle">—</div>
+        <div class="player-desc" id="playerDesc">—</div>
+      </div>
+      <button id="playerClose" class="btn ghost player-close">Close</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2025 <a href="https://suvicorp.neocities.org/us.html" class="footerLink">Doubt</a> Pty Ltd. All rights reserved.<p class="powered">Powered by <a href="https://suvicorp.neocities.org/wex" class="footerLink">WEX</a></p></div>
+      <div class="muted"><a class="logo" href="https://suvicorpo.github.io/stream.html"><img src="images/viewpoint_logo.png" alt="ViewPoint"></a></div>
+    </div>
+
+  </footer>
+  
+  <script type="module" src="js/firebase-profile.js"></script>
+  <script type="module" src="js/tv.js"></script>
 </body>
 </html>
