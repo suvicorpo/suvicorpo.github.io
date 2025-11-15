@@ -6,16 +6,16 @@
   <script>
     const host = window.location.hostname;
     if (host === "viewpoint.doubtmedia.com") {
-      window.location.href = "/viewpoint/index.html";
+      window.location.href = "viewpoint/index.html";
     } else {
-      window.location.href = "/main/index.html";
+      window.location.href = "main/index.html";
     }
   </script>
 </head>
 <body>
   <p>Redirecting… <a id="link" href="#">Click here if not redirected</a></p>
   <script>
-    document.getElementById('link').href = (host === "viewpoint.doubtmedia.com") ? "/viewpoint/index.html" : "/main/index.html";
+    document.getElementById('link').href = (host === "viewpoint.doubtmedia.com") ? "viewpoint/index.html" : "main/index.html";
   </script>
 </body>
 </html>
