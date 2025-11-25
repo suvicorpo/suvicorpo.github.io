@@ -154,11 +154,12 @@ label {
     width: 0;
     border-radius: var(--border-radius);
     background-color: var(--primary-color);
+    box-shadow: var(--primary-color) 0 0 15px;
 }
 
 .dockNav a:hover::before {
     width: 100%;
-    transition: width var(--transition-duration) ease-out;
+    transition: width var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out;
 }
 
 
@@ -198,16 +199,19 @@ label {
     background-color: var(--primary-color);
     border-radius: inherit;
     z-index: -1;
-    transition: width var(--transition-duration) ease-out, color var(--transition-duration) ease-out;
+    box-shadow: var(--primary-color) 0 0 0px;
+    transition: width var(--transition-duration) ease-out, color var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out;
 }
 
 .btn:hover::before {
     width: 100%;
+    box-shadow: var(--primary-color) 0 0 25px;
 }
 
 .btn:hover {
     color: black;
-    transition: color var(--transition-duration) ease-out;
+    box-shadow: var(--primary-color) 0 0 25px;
+    transition: color var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out;
 }
 
 
@@ -217,8 +221,7 @@ label {
 .hero {
     height: 1000px;               
     background-image: 
-        linear-gradient(#06060600, #060606),
-        url('/suvicorpo.github.io/images/hero.png');
+        linear-gradient(#26ff3f10, #060606);
     background-size: cover;       
     background-position: center;  
     background-repeat: no-repeat;
@@ -351,3 +354,9 @@ form {
     align-items: center;
     gap: 1rem;
 }  
+
+underline {
+    text-decoration: underline;
+    text-decoration-color: var(--primary-color);
+    text-decoration-style: dotted;
+}
