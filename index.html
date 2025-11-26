@@ -18,6 +18,7 @@
     </div>
 
     <section class="hero">
+        <div class="binary"></div>
         <div class="hero-content">
             <h1>Making Cool Sh!t</h1>
             <a href="our-work.html" class="btn">Explore Our Work</a>
@@ -34,5 +35,43 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        function generateBinaryString(length) {
+            let str = "";
+            for (let i = 0; i < length; i++) {
+                str += Math.random() > 0.5 ? "1" : "0";
+            }
+            return str;
+        }
+
+        const binaryDiv = document.querySelector(".binary");
+        const hero = document.querySelector(".hero");
+
+        const charWidth = 10;
+        const charHeight = 12;
+
+        const charsNeeded = Math.floor(hero.offsetWidth / charWidth) *
+                            Math.floor(hero.offsetHeight / charHeight);
+
+        let binaryText = generateBinaryString(charsNeeded);
+        binaryDiv.textContent = binaryText;
+
+        // CONSTANT UPDATE LOOP
+        function updateBinary() {
+            // Replace a few random characters each frame
+            for (let i = 0; i < 1000; i++) {
+                const index = Math.floor(Math.random() * binaryText.length);
+                binaryText =
+                    binaryText.substring(0, index) +
+                    (Math.random() > 0.5 ? "1" : "0") +
+                    binaryText.substring(index + 1);
+            }
+
+            binaryDiv.textContent = binaryText;
+            requestAnimationFrame(updateBinary);
+        }
+
+        updateBinary();
+    </script>
 </body>
 </html>

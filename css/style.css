@@ -221,7 +221,7 @@ label {
 .hero {
     height: 1000px;               
     background-image: 
-        linear-gradient(#26ff3f10, #060606);
+        linear-gradient(#26ff8b10, #060606);
     background-size: cover;       
     background-position: center;  
     background-repeat: no-repeat;
@@ -232,10 +232,38 @@ label {
     color: white;                
     text-align: center;
     padding: 2rem;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#26ff8f10, #060606);
+    pointer-events: none;
+    z-index: 0.5;
+}
+
+.binary {
+    position: absolute;
+    inset: 0;
+    font-family: monospace;
+    font-size: 1rem;
+    line-height: 1.1rem;
+    color: rgba(0, 190, 92, 0.306);
+    word-break: break-all;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    background-image: inherit;
 }
 
 .hero-content {
     padding: 2rem;
+    z-index: 1;
 }
 
 .hero h1 {
