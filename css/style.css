@@ -258,7 +258,6 @@ label {
     pointer-events: none;
     user-select: none;
     z-index: 0;
-    background-image: inherit;
 }
 
 .hero-content {
