@@ -10,7 +10,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-document.getElementById('pitch-form').addEventListener('submit', function(e) {
+document.getElementById('contact').addEventListener('submit', function(e) {
   e.preventDefault();
 
   const form = e.target;
@@ -31,25 +31,5 @@ document.getElementById('pitch-form').addEventListener('submit', function(e) {
     }
   }).catch(error => {
     alert('Oops! There was a problem submitting your form.');
-  });
-});
-
-// Make sure this runs after the DOM is ready
-window.addEventListener("load", () => {
-  const button = document.querySelector(".mobile-nav-toggle");
-  const nav = document.querySelector(".nav-links");
-
-  if (!button || !nav) {
-    console.warn("Button or nav not found!");
-    return;
-  }
-
-  // Always remove previous listener first
-  button.replaceWith(button.cloneNode(true));
-  const newButton = document.querySelector(".mobile-nav-toggle");
-
-  newButton.addEventListener("click", () => {
-    console.log("Mobile nav button clicked!");
-    nav.classList.toggle("open");
   });
 });
