@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doubt - Home</title>
+    <link rel="stylesheet" href="css/boring.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo"><a href="boring.html"><img src="images/doubt-logo.png"></a></div>
+        <div class="right">
+            <a href="#about">About</a>
+            <a href="#partners">Partners</a>
+            <a href="#work">Our Work</a>
+            <a href="#reachout">Reach Out</a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>DOUBT</h1>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <h1>About Us</h1>
+        <p>Doubt is a cutting-edge media company dedicated to creating innovative and engaging content that captivates audiences worldwide. Our team of talented professionals works tirelessly to push the boundaries of creativity and technology, delivering exceptional experiences across various platforms.</p>
+    </section>
+
+    <section class="section" id="partners">
+        <h2>Our Partners</h2>
+        <div class="auto-scroll-container" id="infiniteScroll">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+            <img src="images/doubt-logo.png">
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Doubt. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        const container = document.getElementById('infiniteScroll');
+
+        const clone = container.innerHTML;
+        container.innerHTML += clone;
+
+        let speed = 1;
+
+        function loop() {
+            container.scrollLeft += speed;
+
+            if (container.scrollLeft >= container.scrollWidth / 2) {
+                container.scrollLeft = 0;
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        requestAnimationFrame(loop);
+
+    </script>
+</body>
+</html>

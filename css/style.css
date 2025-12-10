@@ -162,6 +162,10 @@ label {
     transition: width var(--transition-duration) ease-out, box-shadow var(--transition-duration) ease-out;
 }
 
+.dockNav img {
+    border-radius: 0 !important; 
+}
+
 
 /* =========================================================
    =                     Button Styles                     =
@@ -386,4 +390,16 @@ underline {
     text-decoration: underline;
     text-decoration-color: var(--primary-color);
     text-decoration-style: dotted;
+}
+
+.studios img {
+    max-width: 60%;
+}
+
+.studioBanner {
+    margin-top: 8rem;
+}
+
+.studioBanner .btn {
+    margin-top: 3rem;
 }

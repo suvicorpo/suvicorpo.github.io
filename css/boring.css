@@ -1,0 +1,111 @@
+:root {
+    --background: #ffffff;
+    --border: #9b9b9b;
+    --borderBlack: #1b1b1b;
+    --textColour: #000000;
+    --accent: #19e8fe;
+    --transition: all 0.3s ease-in-out;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body {
+    margin: 0;
+    background-color: var(--background);
+    text-align: center;
+}
+
+p {
+    max-width: 40%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    height: 3rem;
+    border-bottom: var(--borderBlack) solid 4px;
+    padding: 0.4rem 1.2rem;
+    box-shadow: var(--textColour) 0 0 10px;
+}
+
+.navbar img {
+    max-height: 3rem;
+    display: inline-block;
+}
+
+.navbar a {
+    color: var(--background);
+    text-decoration: none;
+    margin: 0 0.7rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.navbar a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 0;
+    background-color: var(--accent);
+    box-shadow: var(--accent) 0 0 15px;
+}
+
+.navbar a:hover::before {
+    width: 100%;
+    transition: var(--transition);
+}
+
+.hero {
+    background-image: url("../images/hero.png");
+    overflow: hidden;
+    min-height: 45rem;
+    box-shadow: var(--borderBlack) 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero h1 {
+    color: var(--background);
+    font-size: 20rem;
+    text-shadow: rgba(0, 0, 0, 0.399) 0 10px 10px;
+}
+
+.section {
+    padding: 4rem 2rem;
+}
+
+.auto-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    margin: 0 auto;
+    gap: 1rem;
+    padding: 1rem;
+    width: auto;
+    white-space: nowrap;
+    height: 150px;
+}
+
+.auto-scroll-container img {
+    height: 7rem !important;        /* set your size */
+    width: auto !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;       /* prevent images from squishing */
+    z-index: 100 !important;
+}
+
+/* hide scrollbar if you want */
+.auto-scroll-container::-webkit-scrollbar {
+    display: none;
+}
