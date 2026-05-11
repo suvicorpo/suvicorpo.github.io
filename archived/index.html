@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doubt - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+    <div class="dockNav">
+    <!-- NAV -->
+        <a href="index.html"><img src="images/home.png" alt="Doubt Logo" class="icon"></a>
+        <a href="our-studios.html">Our Studios</a>
+        <a href="our-team.html">Our Team</a>
+        <a href="reach-out.html">Contact</a>
+        <a href="https://watchflicker.doubtmedia.com">Flicker</a>
+    </div>
+
+    <section class="hero">
+        <div class="binary"></div>
+        <div class="hero-content">
+            <h1>Making Cool Sh!t</h1>
+            <a href="our-studios.html" class="btn">Explore Our Work</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h1>About Us</h1>
+        <p>Doubt is a cutting-edge media company dedicated to creating innovative and engaging content that captivates audiences worldwide. Our team of talented professionals works tirelessly to push the boundaries of creativity and technology, delivering exceptional experiences across various platforms.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Doubt. All rights reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        function generateBinaryString(length) {
+            let str = "";
+            for (let i = 0; i < length; i++) {
+                str += Math.random() > 0.5 ? "1" : "0";
+            }
+            return str;
+        }
+
+        const binaryDiv = document.querySelector(".binary");
+        const hero = document.querySelector(".hero");
+
+        const charWidth = 10;
+        const charHeight = 12;
+
+        const charsNeeded = Math.floor(hero.offsetWidth / charWidth) *
+                            Math.floor(hero.offsetHeight / charHeight);
+
+        let binaryText = generateBinaryString(charsNeeded);
+        binaryDiv.textContent = binaryText;
+
+        // CONSTANT UPDATE LOOP
+        function updateBinary() {
+            // Replace a few random characters each frame
+            for (let i = 0; i < 1000; i++) {
+                const index = Math.floor(Math.random() * binaryText.length);
+                binaryText =
+                    binaryText.substring(0, index) +
+                    (Math.random() > 0.5 ? "1" : "0") +
+                    binaryText.substring(index + 1);
+            }
+
+            binaryDiv.textContent = binaryText;
+            requestAnimationFrame(updateBinary);
+        }
+
+        updateBinary();
+    </script>
+</body>
+</html>
